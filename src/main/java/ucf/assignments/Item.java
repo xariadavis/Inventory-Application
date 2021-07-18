@@ -37,4 +37,8 @@ public class Item {
     public void setName(String name) {
         this.name.set(name);
     }
+
+    public String toString() {
+        return "Value: " + getValue() + "; Serial Number: " + getSerialNumber() + "; Name: " + getName();
+    }
 }
