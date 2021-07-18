@@ -186,4 +186,14 @@ public class PersonalInventoryController {
             System.out.println(inventory.getTheList());
         }
     }
+
+    // remove an item from the table
+    public void removeItemFromTable() {
+        // grab the index if the selected item
+        int index = inventoryTable.getSelectionModel().getSelectedIndex();
+        // call ops removeItem to remove the selected item from the arrayList
+        ops.removeItem(index, inventory.theList);
+        // get the items from the inventory table and remove the selected item
+        inventoryTable.getItems().remove(index);
+    }
 }

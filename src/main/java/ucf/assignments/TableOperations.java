@@ -21,4 +21,10 @@ public class TableOperations {
         return name;
     }
 
+    // remove item
+    public void removeItem(int index, ArrayList<Item> theList) {
+        // remove item at index specified
+        theList.remove(index);
+    }
+
 }
