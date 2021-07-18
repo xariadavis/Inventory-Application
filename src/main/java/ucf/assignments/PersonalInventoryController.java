@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 
@@ -61,11 +62,6 @@ public class PersonalInventoryController {
         stage.close();
     }
 
-    // return doubleValue
-    private double getValue() {
-        return Double.parseDouble(valueTF.getText());
-    }
-
     // catch invalid value input
     public void catchInvalidValue() {
         // try to addItemToTable
@@ -104,7 +100,7 @@ public class PersonalInventoryController {
         // format value column
         DecimalFormat currency = new DecimalFormat("$0.00");
         valueColumn.setCellValueFactory(cellData -> {
-            String formattedCost = currency.format(getValue());
+            String formattedCost = currency.format(cellData.getValue().getValue());
             return new SimpleStringProperty(formattedCost);
         });
     }
@@ -130,11 +126,6 @@ public class PersonalInventoryController {
                 flag = true;
             }
 
-            //if(!flag) {
-                //Alert alert = new Alert(Alert.AlertType.ERROR);
-                //alert.setContentText("Invalid input. Serial Number already exists in database");
-                //alert.show();
-            //}
         }
 
         // return bool marker
@@ -150,6 +141,18 @@ public class PersonalInventoryController {
             flag = false;
         }
         return flag;
+    }
+
+    // refreshes the textfields so user does not have to manually reset each time
+    public void refreshEvent() {
+        // set value textfeild to null
+        valueTF.clear();
+
+        // set serial number value to null
+        snTF.clear();
+
+        // set name textfield to null
+        nameTF.clear();
     }
 
     // add event to tableview
@@ -171,11 +174,14 @@ public class PersonalInventoryController {
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(Double.parseDouble(value), sn, name, this.inventory.theList);
 
+            //refreshEvent();
             // call formatTableView to format the currency correctly
             formatTableview();
 
             // add the created item to tableView
             inventoryTable.getItems().add(item);
+
+            refreshEvent();
 
             System.out.println(inventory.getTheList());
         }

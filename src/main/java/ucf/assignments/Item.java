@@ -3,6 +3,9 @@ package ucf.assignments;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Item {
     private SimpleDoubleProperty value;
     private SimpleStringProperty serialNumber;
@@ -15,6 +18,11 @@ public class Item {
     }
 
     public double getValue() {
+        //BigDecimal bd = new BigDecimal(value.get()).setScale(2, RoundingMode.HALF_UP);
+        //double val2 = bd.doubleValue();
+        //return val2;
+
+        //return Math.round(value.get()*100.0)/100.0;
         return value.get();
     }
 
@@ -39,6 +47,7 @@ public class Item {
     }
 
     public String toString() {
+
         return "Value: " + getValue() + "; Serial Number: " + getSerialNumber() + "; Name: " + getName();
     }
 }
