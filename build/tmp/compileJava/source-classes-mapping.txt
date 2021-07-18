@@ -1,3 +1,7 @@
+ucf/assignments/Inventory.java
+ ucf.assignments.Inventory
+ucf/assignments/TableOperations.java
+ ucf.assignments.TableOperations
 ucf/assignments/PersonalInventory.java
  ucf.assignments.PersonalInventory
  ucf.assignments.PersonalInventory$1
@@ -6,9 +10,5 @@ ucf/assignments/TableSettings.java
  ucf.assignments.TableSettings
 ucf/assignments/Item.java
  ucf.assignments.Item
-ucf/assignments/Inventory.java
- ucf.assignments.Inventory
-ucf/assignments/TableOperations.java
- ucf.assignments.TableOperations
 ucf/assignments/PersonalInventoryController.java
  ucf.assignments.PersonalInventoryController

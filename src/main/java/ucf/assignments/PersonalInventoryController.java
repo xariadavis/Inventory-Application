@@ -141,13 +141,24 @@ public class PersonalInventoryController {
         return flag;
     }
 
+    public boolean validateString() {
+        boolean flag = true;
+        if(nameTF.getText().length() < 2 || nameTF.getText().length() > 256) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Invalid input. Name must be between 2 and 256 characters");
+            alert.show();
+            flag = false;
+        }
+        return flag;
+    }
+
     // add event to tableview
     public void addItemToTable() {
         // catchInvalidValue();
         // convert textfields to strings
 
         // if the serial number is not invalid/a duplicate, then add the event
-        if(catchInvalidSerial() && validateSerialNumber(snTF.getText())) {
+        if(catchInvalidSerial() && validateSerialNumber(snTF.getText()) && validateString()) {
 
             // convert inputted into to strings
             String value = valueTF.getText();
