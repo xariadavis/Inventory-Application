@@ -108,7 +108,7 @@
             </TextField>
          </children>
       </Pane>
-      <TextField layoutX="586.0" layoutY="353.0" prefHeight="35.0" prefWidth="190.0" promptText="Search..." style="-fx-background-color: #160f38; -fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff;">
+      <TextField fx:id="searchBox" layoutX="586.0" layoutY="353.0" prefHeight="35.0" prefWidth="190.0" promptText="Search..." style="-fx-background-color: #160f38; -fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff;">
          <font>
             <Font name="Segoe UI Light" size="13.0" />
          </font>

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class TableOperations {
     public Item addToTable(double value, String serialNumber, String name, ArrayList<Item> theList) {
         Item item = new Item(value, serialNumber, limitText(name));
+        item.setValue(value);
+        item.setSerialNumber(serialNumber);
+        item.setName(limitText(name));
         theList.add(item);
 
         return item;

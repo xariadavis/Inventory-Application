@@ -17,6 +17,9 @@ public class Item {
         this.name = new SimpleStringProperty(name);
     }
 
+    public Item() {
+    }
+
     public double getValue() {
         //BigDecimal bd = new BigDecimal(value.get()).setScale(2, RoundingMode.HALF_UP);
         //double val2 = bd.doubleValue();
@@ -40,6 +43,7 @@ public class Item {
 
     public String getName() {
         return name.get();
+        // return "Bob";
     }
 
     public void setName(String name) {

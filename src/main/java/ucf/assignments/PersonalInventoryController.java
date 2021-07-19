@@ -8,6 +8,8 @@ package ucf.assignments;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,19 +18,24 @@ import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Predicate;
 
 
 public class PersonalInventoryController {
     TableOperations ops = new TableOperations();
     Inventory inventory = new Inventory();
     Item item;
+    ObservableList<Item> itemObservableList = FXCollections.observableArrayList();
 
     @FXML private Stage stage;
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
     @FXML public TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
     @FXML private TableView<Item> inventoryTable;
-    @FXML private TextField valueTF, snTF, nameTF;
+    @FXML private TextField valueTF, snTF, nameTF, searchBox;
 
     public void initialize() {
         final ObservableList<Item> data = FXCollections.observableArrayList(
@@ -50,9 +57,8 @@ public class PersonalInventoryController {
         snColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        //inventoryTable.setItems(data);
+        searchTable();
     }
-
 
     // close the application window
     public void exitWindow(ActionEvent actionEvent) {
@@ -60,6 +66,28 @@ public class PersonalInventoryController {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         // close the stage window
         stage.close();
+    }
+
+    // create method to return true if item matches search text
+    private boolean searchForItem(Item item, String searchText){
+        return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
+                (item.getSerialNumber().toLowerCase().contains(searchText.toLowerCase()));
+    }
+
+    // loop through and create a list for the items that match the search text
+    private ObservableList<Item> filterList(ArrayList<Item> list, String searchText){
+        List<Item> filteredList = new ArrayList<>();
+        for (Item item : list){
+            if(searchForItem(item, searchText)) filteredList.add(item);
+        }
+        return FXCollections.observableList(filteredList);
+    }
+
+    // add listener to search box
+    public void searchTable() {
+        searchBox.textProperty().addListener((observable, oldValue, newValue) ->
+                inventoryTable.setItems(filterList(this.inventory.theList, newValue))
+        );
     }
 
     // catch invalid value input
@@ -174,6 +202,9 @@ public class PersonalInventoryController {
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(Double.parseDouble(value), sn, name, this.inventory.theList);
 
+            itemObservableList.add(new Item(Double.parseDouble(value), sn, name));
+            System.out.println("OBSERVABLE LIST: " + itemObservableList);
+
             //refreshEvent();
             // call formatTableView to format the currency correctly
             formatTableview();
@@ -184,6 +215,7 @@ public class PersonalInventoryController {
             refreshEvent();
 
             System.out.println(inventory.getTheList());
+            System.out.println("NAME " + item.getName());
         }
     }
 
