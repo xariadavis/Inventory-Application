@@ -106,12 +106,12 @@ public class PersonalInventoryController {
     }
 
     // catch incorrectly formatted serial numbers
-    private boolean catchInvalidSerial() {
+    private boolean catchInvalidSerial(String serialNumber) {
         // declare bool for a marker and initialize it to false
         boolean flag = false;
 
         // if inputted sn is 10 digits and contains only letters/numbers then change the bool marker to true
-        if(snTF.getText().matches("^[a-zA-Z0-9]{10}$")) {
+        if(serialNumber.matches("^[a-zA-Z0-9]{10}$")) {
             flag = true;
         } else {
             // else show an alert telling the user the format is incorrect
@@ -135,9 +135,9 @@ public class PersonalInventoryController {
     }
 
     // check is serial number already exists in database
-    public boolean validateSerialNumber(String serialNumber) {
+    public boolean validateSerialNumber(String serialNumber, boolean initialStatus) {
         // initialize boolean marker to true since we want it to loop through correctly the first time
-        boolean flag = true;
+        boolean flag = initialStatus;
         // for (all the items in the list)
         for(int i = 0; i < this.inventory.theList.size(); i++) {
             // if i serial number matches the inputted serial number
@@ -190,21 +190,21 @@ public class PersonalInventoryController {
         // convert textfields to strings
 
         // if the serial number is not invalid/a duplicate, then add the event
-        if(catchInvalidSerial() && validateSerialNumber(snTF.getText()) && validateString()) {
+        if(catchInvalidSerial(snTF.getText()) && validateSerialNumber(snTF.getText(), true) && validateString()) {
 
             // convert inputted into to strings
             String value = valueTF.getText();
             String sn = snTF.getText();
             String name = nameTF.getText();
 
-            validateSerialNumber(sn);
+            validateSerialNumber(sn, true);
             //System.out.println("validation here, im " + validateSerialNumber(sn));
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(Double.parseDouble(value), sn, name, this.inventory.theList);
 
-            itemObservableList.add(new Item(Double.parseDouble(value), sn, name));
-            System.out.println("OBSERVABLE LIST: " + itemObservableList);
+            //itemObservableList.add(new Item(Double.parseDouble(value), sn, name));
+            //System.out.println("OBSERVABLE LIST: " + itemObservableList);
 
             //refreshEvent();
             // call formatTableView to format the currency correctly
@@ -232,25 +232,43 @@ public class PersonalInventoryController {
 
     // validate input for edited value
     public void editItemValueInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+        // get item to edit
         Item item = inventoryTable.getSelectionModel().getSelectedItem();
+        // set a variable to the old value -- set this if the user enters invalid input
         double oldValue = item.getValue();
+
+        // try to set the value the user enters
         try {
             item.setValue(Double.parseDouble(itemStringCellEditEvent.getNewValue()));
+            // if valid -- refresh the table so it can be formatted correctly per the formatTableValue function
             inventoryTable.refresh();
         } // if numberformatexception encountered, the user entered a non numerical value for the value field
         catch(NumberFormatException e) {
             // catch it and show a warning prompting them to enter a numerical value
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid edit input. Please enter a numerical value.");
+            alert.setContentText("Invalid input. Please enter a numerical value.");
             alert.show();
             item.setValue(oldValue);
             inventoryTable.refresh();
         }
     }
 
+    // edit the serial number of an existing item
     public void editItemSNInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+        // get the item to edit
         Item item = inventoryTable.getSelectionModel().getSelectedItem();
-        item.setSerialNumber(itemStringCellEditEvent.getNewValue());
+        // set a variable to the old value -- set this if the user enters invalid input
+        String oldSerialNumber = item.getSerialNumber();
+
+        // if the edited value is in the correct format and not in the database
+        if(catchInvalidSerial(itemStringCellEditEvent.getNewValue()) && validateSerialNumber(itemStringCellEditEvent.getNewValue(), false)) {
+            // set it to item.setSerialNumber
+            item.setSerialNumber(itemStringCellEditEvent.getNewValue());
+        } else {
+            // else set the old serial number and refresh
+            item.setSerialNumber(oldSerialNumber);
+            inventoryTable.refresh();
+        }
     }
 
     public void editItemNameInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
