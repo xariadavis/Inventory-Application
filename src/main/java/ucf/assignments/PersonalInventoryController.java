@@ -161,9 +161,9 @@ public class PersonalInventoryController {
         return flag;
     }
 
-    public boolean validateString() {
+    public boolean validateString(String name) {
         boolean flag = true;
-        if(nameTF.getText().length() < 2 || nameTF.getText().length() > 256) {
+        if(name.length() < 2 || name.length() > 256) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid input. Name must be between 2 and 256 characters");
             alert.show();
@@ -186,27 +186,21 @@ public class PersonalInventoryController {
 
     // add event to tableview
     public void addItemToTable() {
-        // catchInvalidValue();
+
         // convert textfields to strings
+        String value = valueTF.getText();
+        String sn = snTF.getText();
+        String name = nameTF.getText();
+
 
         // if the serial number is not invalid/a duplicate, then add the event
-        if(catchInvalidSerial(snTF.getText()) && validateSerialNumber(snTF.getText(), true) && validateString()) {
-
-            // convert inputted into to strings
-            String value = valueTF.getText();
-            String sn = snTF.getText();
-            String name = nameTF.getText();
+        if(catchInvalidSerial(sn) && validateSerialNumber(sn, true) && validateString(name)) {
 
             validateSerialNumber(sn, true);
-            //System.out.println("validation here, im " + validateSerialNumber(sn));
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(Double.parseDouble(value), sn, name, this.inventory.theList);
 
-            //itemObservableList.add(new Item(Double.parseDouble(value), sn, name));
-            //System.out.println("OBSERVABLE LIST: " + itemObservableList);
-
-            //refreshEvent();
             // call formatTableView to format the currency correctly
             formatTableview();
 
@@ -216,7 +210,6 @@ public class PersonalInventoryController {
             refreshEvent();
 
             System.out.println(inventory.getTheList());
-            System.out.println("NAME " + item.getName());
         }
     }
 
@@ -271,8 +264,21 @@ public class PersonalInventoryController {
         }
     }
 
+    // edit the name of an existing item
     public void editItemNameInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+        // get the item
         Item item = inventoryTable.getSelectionModel().getSelectedItem();
-        item.setName(itemStringCellEditEvent.getNewValue());
+        // set a variable to the old value -- set this if the user enters invalid input
+        String oldName = item.getName();
+
+        // if the new string name is in a valid format
+        if(validateString(itemStringCellEditEvent.getNewValue())) {
+            // set the edited string name
+            item.setName(itemStringCellEditEvent.getNewValue());
+        } else {
+            // else set the old name and refresh the table
+            item.setName(oldName);
+            inventoryTable.refresh();
+        }
     }
 }
