@@ -8,20 +8,16 @@ package ucf.assignments;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.function.Predicate;
 
 
 public class PersonalInventoryController {
@@ -56,6 +52,11 @@ public class PersonalInventoryController {
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         snColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        inventoryTable.setEditable(true);
+        valueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        snColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         searchTable();
     }
@@ -227,5 +228,33 @@ public class PersonalInventoryController {
         ops.removeItem(index, inventory.theList);
         // get the items from the inventory table and remove the selected item
         inventoryTable.getItems().remove(index);
+    }
+
+    // validate input for edited value
+    public void editItemValueInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+        Item item = inventoryTable.getSelectionModel().getSelectedItem();
+        double oldValue = item.getValue();
+        try {
+            item.setValue(Double.parseDouble(itemStringCellEditEvent.getNewValue()));
+            inventoryTable.refresh();
+        } // if numberformatexception encountered, the user entered a non numerical value for the value field
+        catch(NumberFormatException e) {
+            // catch it and show a warning prompting them to enter a numerical value
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Invalid edit input. Please enter a numerical value.");
+            alert.show();
+            item.setValue(oldValue);
+            inventoryTable.refresh();
+        }
+    }
+
+    public void editItemSNInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+        Item item = inventoryTable.getSelectionModel().getSelectedItem();
+        item.setSerialNumber(itemStringCellEditEvent.getNewValue());
+    }
+
+    public void editItemNameInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+        Item item = inventoryTable.getSelectionModel().getSelectedItem();
+        item.setName(itemStringCellEditEvent.getNewValue());
     }
 }

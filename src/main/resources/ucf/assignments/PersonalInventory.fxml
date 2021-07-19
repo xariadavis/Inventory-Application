@@ -15,9 +15,9 @@
    <children>
       <TableView fx:id="inventoryTable" editable="true" layoutX="36.0" layoutY="405.0" prefHeight="300.0" prefWidth="730.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" stylesheets="@css/tableview.css">
         <columns>
-          <TableColumn id="valueColumn" fx:id="valueColumn" minWidth="20.0" prefWidth="200.0" resizable="false" text="Value" />
-          <TableColumn id="snColumn" fx:id="snColumn" minWidth="20.0" prefWidth="200.0" resizable="false" text="Serial Number" />
-            <TableColumn id="nameColumn" fx:id="nameColumn" minWidth="20.0" prefWidth="295.0" resizable="false" text="Name" />
+          <TableColumn id="valueColumn" fx:id="valueColumn" minWidth="20.0" onEditCommit="#editItemValueInTable" prefWidth="200.0" resizable="false" text="Value" />
+          <TableColumn id="snColumn" fx:id="snColumn" minWidth="20.0" onEditCommit="#editItemSNInTable" prefWidth="200.0" resizable="false" text="Serial Number" />
+            <TableColumn id="nameColumn" fx:id="nameColumn" minWidth="20.0" onEditCommit="#editItemNameInTable" prefWidth="295.0" resizable="false" text="Name" />
         </columns>
       </TableView>
       <ImageView fitHeight="65.0" fitWidth="800.0" layoutY="3.0" pickOnBounds="true" style="-fx-border-radius: 15; -fx-background-radius: 15;">
@@ -47,7 +47,7 @@
       </ImageView>
       <Pane layoutX="598.0" layoutY="101.0" prefHeight="199.0" prefWidth="165.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
-            <Label layoutX="56.0" layoutY="14.0" text="Total" textFill="WHITE">
+            <Label layoutX="56.0" layoutY="14.0" text="Stats" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Light" size="23.0" />
                </font>
@@ -113,7 +113,7 @@
             <Font name="Segoe UI Light" size="13.0" />
          </font>
       </TextField>
-      <JFXButton fx:id="editButton" layoutX="490.0" layoutY="353.0" prefHeight="35.0" prefWidth="80.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Edit Item" textFill="WHITE">
+      <JFXButton fx:id="clearListButton" layoutX="490.0" layoutY="353.0" prefHeight="35.0" prefWidth="80.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Clear List" textFill="WHITE">
          <font>
             <Font name="Segoe UI Light" size="15.0" />
          </font>

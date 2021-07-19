@@ -1,3 +1,9 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Xaria Davis
+ */
+
+
 package ucf.assignments;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -43,7 +49,6 @@ public class Item {
 
     public String getName() {
         return name.get();
-        // return "Bob";
     }
 
     public void setName(String name) {
