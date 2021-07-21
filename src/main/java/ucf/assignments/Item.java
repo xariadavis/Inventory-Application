@@ -6,9 +6,16 @@
 
 package ucf.assignments;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -20,18 +27,14 @@ public class Item {
     Item(double value, String serialNumber, String name) {
         this.value = new SimpleDoubleProperty(value);
         this.serialNumber = new SimpleStringProperty(serialNumber);
-        this.name = new SimpleStringProperty(name);
+        this.name = new SimpleStringProperty(name);;
     }
 
     public Item() {
+
     }
 
     public double getValue() {
-        //BigDecimal bd = new BigDecimal(value.get()).setScale(2, RoundingMode.HALF_UP);
-        //double val2 = bd.doubleValue();
-        //return val2;
-
-        //return Math.round(value.get()*100.0)/100.0;
         return value.get();
     }
 

@@ -5,7 +5,11 @@
 
 package ucf.assignments;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,61 +17,96 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PersonalInventoryController {
     TableOperations ops = new TableOperations();
     Inventory inventory = new Inventory();
-    Item item;
-    ObservableList<Item> itemObservableList = FXCollections.observableArrayList();
+    Item item = new Item();
+    FileManagement fileManagement = new FileManagement();
+    ArrayList<Double> values = new ArrayList<>();
 
-    @FXML private Stage stage;
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
     @FXML public TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
+    @FXML public TableColumn<Item, Boolean> deleteColumn = new TableColumn<>("");
     @FXML private TableView<Item> inventoryTable;
-    @FXML private TextField valueTF, snTF, nameTF, searchBox;
+    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount;
+    @FXML ImageView serialNumberImage, nameImage;
+    @FXML JFXButton clearListButton, importButton, exportButton;
 
     public void initialize() {
-        final ObservableList<Item> data = FXCollections.observableArrayList(
-                new Item(20.00, "67676767", "test test test"),
-                new Item(44.00, "54465465", "test test"),
-                new Item(67.00, "31246516", "test"),
-                new Item(20.00, "67676767", "test test test"),
-                new Item(44.00, "54465465", "test test"),
-                new Item(67.00, "31246516", "test"),
-                new Item(20.00, "67676767", "test test test"),
-                new Item(44.00, "54465465", "test test"),
-                new Item(67.00, "31246516", "test"),
-                new Item(20.00, "67676767", "test test test"),
-                new Item(44.00, "54465465", "test test"),
-                new Item(67.00, "31246516", "test")
-        );
+
+        deleteColumn.setEditable(false);
 
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         snColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        deleteColumn.setCellValueFactory(new PropertyValueFactory<>("removeButton"));
 
         inventoryTable.setEditable(true);
         valueColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         snColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        deleteColumn.setCellValueFactory(
+                r -> new SimpleBooleanProperty(r.getValue() != null));
+
+        deleteColumn.setCellFactory(
+                r -> new RemoveTablecell(inventoryTable, inventory.theList, values));
+
+        inventoryTable.getColumns().add(deleteColumn);
+
+        snTF.textProperty().addListener((observableValue, oldValue, newValue) -> snTF.setText(newValue.toUpperCase()));
+
         searchTable();
+
+        // listener for serial number textfield
+        snTF.textProperty().addListener(((observable, oldValue, newValue) -> { int s = (int) newValue.length();
+            snWordCount.setText("Character Count: " + s);
+            if(s == 10) {
+                serialNumberImage.setVisible(true);
+            } else {
+                serialNumberImage.setVisible(false);
+            }
+        }));
+
+        // listener for name textfield
+        nameTF.textProperty().addListener(((observable, oldValue, newValue) -> { int n = (int) newValue.length();
+            nameWordCount.setText("Character Count: " + n);
+            if(n >= 2 && n <= 256) {
+                nameImage.setVisible(true);
+            } else {
+                nameImage.setVisible(false);
+            }
+        }));
+
+        valueTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*(\\.\\d)$") || !newValue.matches(".")) {
+                    valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
+                }
+            }
+        });
     }
 
     // close the application window
     public void exitWindow(ActionEvent actionEvent) {
         // grab the stage window
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         // close the stage window
         stage.close();
     }
+
 
     // create method to return true if item matches search text
     private boolean searchForItem(Item item, String searchText){
@@ -86,9 +125,20 @@ public class PersonalInventoryController {
 
     // add listener to search box
     public void searchTable() {
-        searchBox.textProperty().addListener((observable, oldValue, newValue) ->
+        inventoryTable.refresh();
+
+        searchBox.textProperty().addListener((observableValue, oldValue, newValue) ->
                 inventoryTable.setItems(filterList(this.inventory.theList, newValue))
         );
+
+        inventoryTable.refresh();
+    }
+
+    // populate total data
+    public void totalField() {
+        double total = values.stream().mapToDouble(Double::doubleValue).sum();
+        String string = String.format("$%.2f", total);
+        totalTF.setText(string);
     }
 
     // catch invalid value input
@@ -150,8 +200,8 @@ public class PersonalInventoryController {
                 flag = false;
                 break;
             } else {
-                System.out.println("I don't match :)");
                 // bool marker true
+                serialNumberImage.setVisible(true);
                 flag = true;
             }
 
@@ -196,10 +246,15 @@ public class PersonalInventoryController {
         // if the serial number is not invalid/a duplicate, then add the event
         if(catchInvalidSerial(sn) && validateSerialNumber(sn, true) && validateString(name)) {
 
+            inventoryTable.refresh();
+
             validateSerialNumber(sn, true);
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(Double.parseDouble(value), sn, name, this.inventory.theList);
+
+            values.add(Double.parseDouble(value));
+            System.out.println(values);
 
             // call formatTableView to format the currency correctly
             formatTableview();
@@ -209,19 +264,12 @@ public class PersonalInventoryController {
 
             refreshEvent();
 
+            totalField();
+
             System.out.println(inventory.getTheList());
         }
     }
 
-    // remove an item from the table
-    public void removeItemFromTable() {
-        // grab the index if the selected item
-        int index = inventoryTable.getSelectionModel().getSelectedIndex();
-        // call ops removeItem to remove the selected item from the arrayList
-        ops.removeItem(index, inventory.theList);
-        // get the items from the inventory table and remove the selected item
-        inventoryTable.getItems().remove(index);
-    }
 
     // validate input for edited value
     public void editItemValueInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
@@ -235,6 +283,8 @@ public class PersonalInventoryController {
             item.setValue(Double.parseDouble(itemStringCellEditEvent.getNewValue()));
             // if valid -- refresh the table so it can be formatted correctly per the formatTableValue function
             inventoryTable.refresh();
+
+            totalField();
         } // if numberformatexception encountered, the user entered a non numerical value for the value field
         catch(NumberFormatException e) {
             // catch it and show a warning prompting them to enter a numerical value
@@ -256,12 +306,13 @@ public class PersonalInventoryController {
         // if the edited value is in the correct format and not in the database
         if(catchInvalidSerial(itemStringCellEditEvent.getNewValue()) && validateSerialNumber(itemStringCellEditEvent.getNewValue(), false)) {
             // set it to item.setSerialNumber
-            item.setSerialNumber(itemStringCellEditEvent.getNewValue());
+            item.setSerialNumber(itemStringCellEditEvent.getNewValue().toUpperCase());
         } else {
             // else set the old serial number and refresh
             item.setSerialNumber(oldSerialNumber);
-            inventoryTable.refresh();
         }
+
+        inventoryTable.refresh();
     }
 
     // edit the name of an existing item
@@ -279,6 +330,22 @@ public class PersonalInventoryController {
             // else set the old name and refresh the table
             item.setName(oldName);
             inventoryTable.refresh();
+        }
+    }
+
+    // exports list as json to directory of choice
+    public void exportButtonClicked(ActionEvent actionEvent) {
+        // open filechooser
+        FileChooser output = new FileChooser();
+        // set extension filters
+        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML file", "*.html"));
+        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("TSV file", "*.tsv"));
+        // show save file dialog
+        File file = output.showSaveDialog(null);
+        if (file != null) {
+            // call the to outfile mthod in the list class and write to output
+            //list.toOutfile((file.getAbsolutePath()));
+            fileManagement.listToHTML(file.getAbsolutePath(), inventory.theList);
         }
     }
 }
