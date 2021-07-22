@@ -18,7 +18,7 @@ dependencies {
     implementation group: 'com.jfoenix', name: 'jfoenix', version: '9.0.10'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.7'
-    testImplementation "org.testfx:testfx-core:4.0.16-alpha"
+    implementation 'org.jsoup:jsoup:1.14.1'
 }
 
 test {

@@ -6,39 +6,36 @@
 
 package ucf.assignments;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Item {
-    private SimpleDoubleProperty value;
+    private SimpleStringProperty value;
     private SimpleStringProperty serialNumber;
     private SimpleStringProperty name;
+    FileManagement file = new FileManagement();
 
-    Item(double value, String serialNumber, String name) {
-        this.value = new SimpleDoubleProperty(value);
+    Item(String value, String serialNumber, String name) {
+        this.value = new SimpleStringProperty(value);
         this.serialNumber = new SimpleStringProperty(serialNumber);
         this.name = new SimpleStringProperty(name);;
     }
 
-    public Item() {
-
+    public Item (String rawData) {
+        String[] parsed = rawData.split("\\t");
+        // where rawData is one line representing an Item in the format
+        // double\tserialNumber\tname
+        // ex: 123.0\tTESTING123\tnew list
+        this.value = new SimpleStringProperty(parsed[0]);
+        this.serialNumber = new SimpleStringProperty(parsed[1]);
+        this.name = new SimpleStringProperty(parsed[2]);
     }
 
-    public double getValue() {
+    public String getValue() {
         return value.get();
     }
 
-    public void setValue(double value) {
+    public void setValue(String value) {
         this.value.set(value);
     }
 
@@ -58,8 +55,10 @@ public class Item {
         this.name.set(name);
     }
 
+
     public String toString() {
 
-        return "Value: " + getValue() + "; Serial Number: " + getSerialNumber() + "; Name: " + getName();
+        //return "Value: " + getValue() + ";\tSerial Number: " + getSerialNumber() + ";\tName: " + getName();
+        return getValue() + "\t" + getSerialNumber() + "\t" + getName();
     }
 }

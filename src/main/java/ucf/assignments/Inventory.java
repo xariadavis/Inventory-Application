@@ -8,10 +8,8 @@ package ucf.assignments;
 
 import java.util.ArrayList;
 
-public class Inventory extends Item {
+public class Inventory {
     public ArrayList<Item> theList = new ArrayList<>();
-
-    public Inventory(){}
 
     public ArrayList<Item> getTheList() {
         return theList;

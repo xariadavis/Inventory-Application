@@ -1,3 +1,8 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 Xaria Davis
+ */
+
 package ucf.assignments;
 
 import com.jfoenix.controls.JFXButton;
@@ -16,11 +21,11 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
     RemoveTablecell(final TableView inventoryTable, ArrayList<Item> theList, ArrayList<Double> values){
         setRemoveGraphic();
         removeButton.setOnAction(r -> {
-
+            inventoryTable.refresh();
             int index = getTableRow().getIndex();
             theList.remove(index);
             inventoryTable.getItems().remove(index);
-            values.remove(index);
+            //values.remove(index);
             inventoryTable.refresh();
         });
     }

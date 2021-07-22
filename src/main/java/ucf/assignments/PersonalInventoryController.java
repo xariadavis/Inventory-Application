@@ -8,8 +8,6 @@ package ucf.assignments;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +18,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -29,7 +28,6 @@ import java.util.List;
 public class PersonalInventoryController {
     TableOperations ops = new TableOperations();
     Inventory inventory = new Inventory();
-    Item item = new Item();
     FileManagement fileManagement = new FileManagement();
     ArrayList<Double> values = new ArrayList<>();
 
@@ -56,11 +54,15 @@ public class PersonalInventoryController {
         snColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
+        Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
+                = (TableColumn<Item, String> param) -> new EditingCell();
+        valueColumn.setCellFactory(cellFactory);
+
         deleteColumn.setCellValueFactory(
                 r -> new SimpleBooleanProperty(r.getValue() != null));
 
         deleteColumn.setCellFactory(
-                r -> new RemoveTablecell(inventoryTable, inventory.theList, values));
+                r -> new RemoveTablecell(inventoryTable, inventory.getTheList(), values));
 
         inventoryTable.getColumns().add(deleteColumn);
 
@@ -69,32 +71,20 @@ public class PersonalInventoryController {
         searchTable();
 
         // listener for serial number textfield
-        snTF.textProperty().addListener(((observable, oldValue, newValue) -> { int s = (int) newValue.length();
+        snTF.textProperty().addListener(((observable, oldValue, newValue) -> { int s = newValue.length();
             snWordCount.setText("Character Count: " + s);
-            if(s == 10) {
-                serialNumberImage.setVisible(true);
-            } else {
-                serialNumberImage.setVisible(false);
-            }
+            serialNumberImage.setVisible(s == 10);
         }));
 
         // listener for name textfield
-        nameTF.textProperty().addListener(((observable, oldValue, newValue) -> { int n = (int) newValue.length();
+        nameTF.textProperty().addListener(((observable, oldValue, newValue) -> { int n = newValue.length();
             nameWordCount.setText("Character Count: " + n);
-            if(n >= 2 && n <= 256) {
-                nameImage.setVisible(true);
-            } else {
-                nameImage.setVisible(false);
-            }
+            nameImage.setVisible(n >= 2 && n <= 256);
         }));
 
-        valueTF.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*(\\.\\d)$") || !newValue.matches(".")) {
-                    valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
-                }
+        valueTF.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*(\\.\\d)$") || !newValue.matches(".")) {
+                valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
             }
         });
     }
@@ -175,12 +165,21 @@ public class PersonalInventoryController {
 
     // if user only enters int, then convert to proper double format
     private void formatTableview() {
-
         // format value column
         DecimalFormat currency = new DecimalFormat("$0.00");
+
         valueColumn.setCellValueFactory(cellData -> {
-            String formattedCost = currency.format(cellData.getValue().getValue());
+            String oldString = cellData.getValue().getValue();
+            String formattedCost;
+            if(cellData.getValue().getValue().startsWith("$")) {
+                formattedCost = oldString;
+            } else if (cellData.getValue().getValue().matches("")) {
+                formattedCost = "VALUE IS NULL";
+            } else {
+                formattedCost = currency.format(Double.parseDouble(cellData.getValue().getValue()));
+            }
             return new SimpleStringProperty(formattedCost);
+
         });
     }
 
@@ -251,7 +250,7 @@ public class PersonalInventoryController {
             validateSerialNumber(sn, true);
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
-            Item item = ops.addToTable(Double.parseDouble(value), sn, name, this.inventory.theList);
+            Item item = ops.addToTable(value, sn, name, this.inventory.theList);
 
             values.add(Double.parseDouble(value));
             System.out.println(values);
@@ -266,21 +265,27 @@ public class PersonalInventoryController {
 
             totalField();
 
-            System.out.println(inventory.getTheList());
+            fileManagement.listToTXT("output/test.txt", inventory.theList);
+
+            System.out.println(inventory.getTheList() + " after add");
         }
     }
 
 
     // validate input for edited value
     public void editItemValueInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+
         // get item to edit
         Item item = inventoryTable.getSelectionModel().getSelectedItem();
         // set a variable to the old value -- set this if the user enters invalid input
-        double oldValue = item.getValue();
+        String oldValue = item.getValue();
 
+        formatTableview();
         // try to set the value the user enters
+
         try {
-            item.setValue(Double.parseDouble(itemStringCellEditEvent.getNewValue()));
+            item.setValue(itemStringCellEditEvent.getNewValue());
+
             // if valid -- refresh the table so it can be formatted correctly per the formatTableValue function
             inventoryTable.refresh();
 
@@ -288,6 +293,7 @@ public class PersonalInventoryController {
         } // if numberformatexception encountered, the user entered a non numerical value for the value field
         catch(NumberFormatException e) {
             // catch it and show a warning prompting them to enter a numerical value
+            System.out.println(e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Invalid input. Please enter a numerical value.");
             alert.show();
@@ -334,18 +340,33 @@ public class PersonalInventoryController {
     }
 
     // exports list as json to directory of choice
-    public void exportButtonClicked(ActionEvent actionEvent) {
+    public void exportButtonClicked() {
         // open filechooser
         FileChooser output = new FileChooser();
         // set extension filters
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML file", "*.html"));
-        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("TSV file", "*.tsv"));
+        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT file", "*.txt"));
         // show save file dialog
         File file = output.showSaveDialog(null);
+        if (file != null && file.getAbsolutePath().endsWith(".html")) {
+            // call the to outfile method in the list class and write to output
+            fileManagement.listToHTML(file.getAbsolutePath(), inventory.getTheList());
+        } else if(file != null && file.getAbsolutePath().endsWith(".txt")){
+            fileManagement.listToTXT(file.getAbsolutePath(), inventory.getTheList());
+        }
+    }
+
+    // import list to eventList
+    public void importButtonClicked() {
+        // open filechooser
+        FileChooser output = new FileChooser();
+        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT file", "*.txt"));
+        // show open dialog
+        File file = output.showOpenDialog(null);
         if (file != null) {
-            // call the to outfile mthod in the list class and write to output
-            //list.toOutfile((file.getAbsolutePath()));
-            fileManagement.listToHTML(file.getAbsolutePath(), inventory.theList);
+            fileManagement.TXTtoList(file.getAbsolutePath(), inventory.getTheList());
+            inventoryTable.getItems().addAll(inventory.getTheList());
+            System.out.println(inventory.getTheList() + "after import");
         }
     }
 }
