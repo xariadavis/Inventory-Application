@@ -6,6 +6,11 @@
 package ucf.assignments;
 
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.*;
 
 
@@ -57,7 +62,7 @@ public class FileManagement {
         for (Item item : theList) {
             String currValue = item.getValue();
             outputFile.println("<tr>");
-            outputFile.println("<td>" + currValue + "</td>");
+            outputFile.println("<td>" + currValue +  "</td>");
             outputFile.println("<td>" + item.getSerialNumber() + "</td>");
             outputFile.println("<td>" + item.getName() + "</td>");
             outputFile.println("</tr>");
@@ -67,8 +72,24 @@ public class FileManagement {
         outputFile.println("</html>");
     }
 
-    public void HTMLtoList() {
+    public void HTMLtoList(String output, ArrayList<Item> theList) {
+        File input = new File(output);
+        Document doc = null;
+        try {
+            doc = Jsoup.parse(input, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        Element table = doc.select("table").get(0);
+        Elements rows = table.select("tr");
+
+        for (int i = 1; i < rows.size(); i++) {
+            Element row = rows.get(i);
+            Elements cols = row.select("td");
+            Item item = new Item(cols.toString().replace("<td>", "").replaceAll("\n", ""), "</td>");
+            theList.add(item);
+        }
     }
 
     public void listToTXT(String output, ArrayList<Item> theList) {
@@ -119,7 +140,7 @@ public class FileManagement {
             String[] splitData = data.split("\\s*\n\\s*");
             for (String splitInfo : splitData) {
                 if (!(splitInfo == null) || !(splitInfo.length() == 0)) {
-                    Item item = new Item(data);
+                    Item item = new Item(data, "\\t");
                     theList.add(item);
                 }
             }

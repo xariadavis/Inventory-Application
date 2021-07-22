@@ -9,6 +9,8 @@ package ucf.assignments;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.ArrayList;
+
 public class Item {
     private SimpleStringProperty value;
     private SimpleStringProperty serialNumber;
@@ -21,8 +23,9 @@ public class Item {
         this.name = new SimpleStringProperty(name);;
     }
 
-    public Item (String rawData) {
-        String[] parsed = rawData.split("\\t");
+    public Item (String rawData, String regex) {
+        //String[] parsed = rawData.split("\\t");
+        String[] parsed = rawData.split(regex);
         // where rawData is one line representing an Item in the format
         // double\tserialNumber\tname
         // ex: 123.0\tTESTING123\tnew list

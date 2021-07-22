@@ -1,11 +1,11 @@
-ucf/assignments/RemoveTablecell.java
- ucf.assignments.RemoveTablecell
-ucf/assignments/Inventory.java
- ucf.assignments.Inventory
 ucf/assignments/PersonalInventory.java
  ucf.assignments.PersonalInventory
  ucf.assignments.PersonalInventory$1
  ucf.assignments.PersonalInventory$2
+ucf/assignments/Inventory.java
+ ucf.assignments.Inventory
+ucf/assignments/RemoveTablecell.java
+ ucf.assignments.RemoveTablecell
 ucf/assignments/EditingCell.java
  ucf.assignments.EditingCell
 ucf/assignments/PersonalInventoryController.java

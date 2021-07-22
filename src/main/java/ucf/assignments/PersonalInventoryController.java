@@ -265,7 +265,7 @@ public class PersonalInventoryController {
 
             totalField();
 
-            fileManagement.listToTXT("output/test.txt", inventory.theList);
+            //fileManagement.listToTXT("output/test.txt", inventory.theList);
 
             System.out.println(inventory.getTheList() + " after add");
         }
@@ -360,12 +360,21 @@ public class PersonalInventoryController {
     public void importButtonClicked() {
         // open filechooser
         FileChooser output = new FileChooser();
+        output.getExtensionFilters().add(new FileChooser.ExtensionFilter("HTML file", "*.html"));
         output.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT file", "*.txt"));
         // show open dialog
         File file = output.showOpenDialog(null);
-        if (file != null) {
+        if (file != null && file.getAbsolutePath().endsWith(".html")) {
+            fileManagement.HTMLtoList(file.getAbsolutePath(), inventory.getTheList());
+            inventoryTable.getItems().addAll(inventory.getTheList());
+            formatTableview();
+            inventoryTable.refresh();
+            System.out.println(inventory.getTheList() + "after import");
+        } else if(file != null && file.getAbsolutePath().endsWith(".txt")) {
             fileManagement.TXTtoList(file.getAbsolutePath(), inventory.getTheList());
             inventoryTable.getItems().addAll(inventory.getTheList());
+            formatTableview();
+            inventoryTable.refresh();
             System.out.println(inventory.getTheList() + "after import");
         }
     }
