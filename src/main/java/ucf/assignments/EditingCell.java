@@ -68,7 +68,7 @@ class EditingCell extends TableCell<Item, String> {
     }
 
     private void createTextField() {
-        textField = new TextField(getString());
+        textField = new TextField(getString().replace("$",""));
         textField.setMinWidth(175);
         textField.setOnAction((e) -> commitEdit());
         textField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {

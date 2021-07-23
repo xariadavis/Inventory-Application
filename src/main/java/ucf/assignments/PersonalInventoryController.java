@@ -313,6 +313,7 @@ public class PersonalInventoryController {
         if(catchInvalidSerial(itemStringCellEditEvent.getNewValue()) && validateSerialNumber(itemStringCellEditEvent.getNewValue(), false)) {
             // set it to item.setSerialNumber
             item.setSerialNumber(itemStringCellEditEvent.getNewValue().toUpperCase());
+            serialNumberImage.setVisible(false);
         } else {
             // else set the old serial number and refresh
             item.setSerialNumber(oldSerialNumber);

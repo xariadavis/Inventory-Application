@@ -60,8 +60,6 @@ public class Item {
 
 
     public String toString() {
-
-        //return "Value: " + getValue() + ";\tSerial Number: " + getSerialNumber() + ";\tName: " + getName();
         return getValue() + "\t" + getSerialNumber() + "\t" + getName();
     }
 }

@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class RemoveTablecell extends TableCell <Item, Boolean> {
+    TableOperations ops = new TableOperations();
     final JFXButton removeButton = new JFXButton("");
 
     RemoveTablecell(final TableView inventoryTable, ArrayList<Item> theList, ArrayList<Double> values){
@@ -23,9 +24,8 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
         removeButton.setOnAction(r -> {
             inventoryTable.refresh();
             int index = getTableRow().getIndex();
-            theList.remove(index);
+            ops.removeItem(index, theList);
             inventoryTable.getItems().remove(index);
-            //values.remove(index);
             inventoryTable.refresh();
         });
     }
