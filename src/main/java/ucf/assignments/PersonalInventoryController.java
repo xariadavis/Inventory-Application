@@ -30,6 +30,9 @@ public class PersonalInventoryController {
     Inventory inventory = new Inventory();
     FileManagement fileManagement = new FileManagement();
     ArrayList<Double> values = new ArrayList<>();
+    String value, name, sn;
+    Item item = new Item(value, sn, name);
+    Boolean status = false;
 
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
@@ -62,7 +65,7 @@ public class PersonalInventoryController {
                 r -> new SimpleBooleanProperty(r.getValue() != null));
 
         deleteColumn.setCellFactory(
-                r -> new RemoveTablecell(inventoryTable, inventory.getTheList(), values));
+                r -> new RemoveTablecell(inventoryTable, inventory.getTheList(), values, totalTF, totalField()));
 
         inventoryTable.getColumns().add(deleteColumn);
 
@@ -125,10 +128,13 @@ public class PersonalInventoryController {
     }
 
     // populate total data
-    public void totalField() {
-        double total = values.stream().mapToDouble(Double::doubleValue).sum();
-        String string = String.format("$%.2f", total);
-        totalTF.setText(string);
+    public String totalField() {
+        double total = inventory.getTheList().stream().mapToDouble(item -> Double.parseDouble(item.getValue())).sum();
+        return String.format("$%.2f", total);
+    }
+
+    public void setTotalTF(TextField totalTF, String total) {
+        totalTF.setText(total);
     }
 
     // catch invalid value input
@@ -251,8 +257,8 @@ public class PersonalInventoryController {
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(value, sn, name, this.inventory.theList);
-
             values.add(Double.parseDouble(value));
+
             System.out.println(values);
 
             // call formatTableView to format the currency correctly
@@ -263,9 +269,7 @@ public class PersonalInventoryController {
 
             refreshEvent();
 
-            totalField();
-
-            //fileManagement.listToTXT("output/test.txt", inventory.theList);
+            setTotalTF(totalTF, totalField());
 
             System.out.println(inventory.getTheList() + " after add");
         }
@@ -277,6 +281,7 @@ public class PersonalInventoryController {
 
         // get item to edit
         Item item = inventoryTable.getSelectionModel().getSelectedItem();
+
         // set a variable to the old value -- set this if the user enters invalid input
         String oldValue = item.getValue();
 
@@ -285,6 +290,7 @@ public class PersonalInventoryController {
 
         try {
             item.setValue(itemStringCellEditEvent.getNewValue());
+            setTotalTF(totalTF, totalField());
 
             // if valid -- refresh the table so it can be formatted correctly per the formatTableValue function
             inventoryTable.refresh();
