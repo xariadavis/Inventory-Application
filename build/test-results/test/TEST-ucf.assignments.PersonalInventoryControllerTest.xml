@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ucf.assignments.PersonalInventoryControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-07-24T08:58:44" hostname="DESKTOP-9IC3LMO" time="0.053">
+  <properties/>
+  <testcase name="atLeast100Items()" classname="ucf.assignments.PersonalInventoryControllerTest" time="0.053"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

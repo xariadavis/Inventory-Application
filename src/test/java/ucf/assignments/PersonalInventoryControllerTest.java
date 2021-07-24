@@ -2,12 +2,39 @@ package ucf.assignments;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonalInventoryControllerTest {
     PersonalInventoryController test = new PersonalInventoryController();
     Item i1 = new Item("15.00", "1234567890", "Netflix");
     Item i2 = new Item("5.00", "AL8A5D7GL7", "Spotify");
+
+    @Test
+        // Test whether application can store > 100 unique items
+    void atLeast100Items() {
+
+        // declare a new array list to hold the items
+        ArrayList<Item> countItems = new ArrayList<>();
+
+        // declare test int to add to end of item
+        int testNum = 0;
+
+        // create a for loop of i < 150 to create 150 items
+        for(int i = 0; i < 150; i++) {
+            // create a new item, at the end of one of the string + the testNum
+            Item testArrayItem = new Item("4.99", "S77E5W9Q6S", "Hulu " + testNum);
+            // add item to the test list
+            countItems.add(testArrayItem);
+            // increment testNum -- so a "unique" item gets added each time
+            testNum++;
+        }
+
+        // assert equals that the list.size is equal to 150 items
+        assertEquals(150, countItems.size());
+    }
+
 
     @Test
     // the searchForItem returns true if the item matches the search

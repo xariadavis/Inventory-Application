@@ -152,6 +152,8 @@ public class PersonalInventoryController {
             });
 
         }
+
+
     }
 
     private void sortSN() {
