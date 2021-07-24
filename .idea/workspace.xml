@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="successful testing">
+    <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="fixed remove bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventoryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/RemoveTablecell.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/RemoveTablecell.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/OverrideSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/OverrideSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627140025115</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="fixed remove bug">
+      <created>1627145223870</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1627145223870</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -447,6 +457,7 @@
     <MESSAGE value="total box now updates the total values of the list as changes are made" />
     <MESSAGE value="fixed sort bug -- need to fix remove" />
     <MESSAGE value="successful testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="successful testing" />
+    <MESSAGE value="fixed remove bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed remove bug" />
   </component>
 </project>

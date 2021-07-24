@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="725.0" prefWidth="1000.0" style="-fx-background-color: #160f38; -fx-border-radius: 15; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.PersonalInventoryController">
    <children>
-      <TableView fx:id="inventoryTable" editable="true" layoutX="26.0" layoutY="335.0" onSort="#sortTable" prefHeight="370.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" stylesheets="@css/tableview.css">
+      <TableView fx:id="inventoryTable" editable="true" layoutX="26.0" layoutY="335.0" prefHeight="370.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" stylesheets="@css/tableview.css">
         <columns>
           <TableColumn id="valueColumn" fx:id="valueColumn" minWidth="20.0" onEditCommit="#editItemValueInTable" prefWidth="200.0" resizable="false" text="Value" />
           <TableColumn id="snColumn" fx:id="snColumn" minWidth="20.0" onEditCommit="#editItemSNInTable" prefWidth="200.0" resizable="false" text="Serial Number" />
@@ -133,19 +133,12 @@
          </image>
       </ImageView>
       <JFXButton fx:id="clearListButton" layoutX="541.0" layoutY="285.0" prefHeight="36.0" prefWidth="52.0" text=" " />
-      <JFXButton fx:id="importButton" layoutX="593.0" layoutY="285.0" onAction="#exportButtonClicked" prefHeight="36.0" prefWidth="52.0" text=" " />
-      <JFXButton fx:id="exportButton" layoutX="647.0" layoutY="285.0" onAction="#importButtonClicked" prefHeight="36.0" prefWidth="52.0" text=" " />
+      <JFXButton fx:id="importButton" layoutX="593.0" layoutY="285.0" onAction="#importButtonClicked" prefHeight="36.0" prefWidth="52.0" text=" " />
+      <JFXButton fx:id="exportButton" layoutX="647.0" layoutY="285.0" onAction="#exportButtonClicked" prefHeight="36.0" prefWidth="52.0" text=" " />
       <TextField fx:id="nameWordCount" alignment="CENTER_RIGHT" editable="false" layoutX="404.0" layoutY="214.0" prefHeight="21.0" prefWidth="149.0" style="-fx-text-fill: #6d2bf8; -fx-background-color: transparent;">
          <font>
             <Font name="Segoe UI Light" size="10.0" />
          </font>
       </TextField>
-      <TableView fx:id="searchList" layoutX="26.0" layoutY="335.0" onSort="#sortTable" prefHeight="370.0" prefWidth="950.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" stylesheets="@css/tableview.css" visible="false">
-         <columns>
-            <TableColumn id="valueColumn" fx:id="valueColumn1" minWidth="20.0" onEditCommit="#editItemValueInTable" prefWidth="200.0" resizable="false" text="Search Value" />
-            <TableColumn id="snColumn" fx:id="snColumn1" minWidth="20.0" onEditCommit="#editItemSNInTable" prefWidth="200.0" resizable="false" text="Search Serial Number" />
-            <TableColumn id="nameColumn" fx:id="nameColumn1" minWidth="20.0" onEditCommit="#editItemNameInTable" prefWidth="450.0" resizable="false" text="Search Name" />
-         </columns>
-      </TableView>
    </children>
 </AnchorPane>

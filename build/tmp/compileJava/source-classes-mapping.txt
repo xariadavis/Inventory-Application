@@ -1,22 +1,22 @@
-ucf/assignments/EditingCell.java
- ucf.assignments.EditingCell
+ucf/assignments/RemoveTablecell.java
+ ucf.assignments.RemoveTablecell
 ucf/assignments/Inventory.java
  ucf.assignments.Inventory
-ucf/assignments/TableOperations.java
- ucf.assignments.TableOperations
+ucf/assignments/PersonalInventoryController.java
+ ucf.assignments.PersonalInventoryController
 ucf/assignments/PersonalInventory.java
  ucf.assignments.PersonalInventory
  ucf.assignments.PersonalInventory$1
  ucf.assignments.PersonalInventory$2
-ucf/assignments/Sorting.java
- ucf.assignments.Sorting
+ucf/assignments/OverrideSort.java
+ ucf.assignments.OverrideSort
 ucf/assignments/FileManagement.java
  ucf.assignments.FileManagement
 ucf/assignments/Item.java
  ucf.assignments.Item
-ucf/assignments/RemoveTablecell.java
- ucf.assignments.RemoveTablecell
-ucf/assignments/PersonalInventoryController.java
- ucf.assignments.PersonalInventoryController
-ucf/assignments/OverrideSort.java
- ucf.assignments.OverrideSort
+ucf/assignments/Sorting.java
+ ucf.assignments.Sorting
+ucf/assignments/TableOperations.java
+ ucf.assignments.TableOperations
+ucf/assignments/EditingCell.java
+ ucf.assignments.EditingCell

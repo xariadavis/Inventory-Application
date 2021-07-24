@@ -17,7 +17,7 @@ public class Inventory {
     public ArrayList<Item> theList = new ArrayList<>();
 
     public ArrayList<Item> getTheList() {
-        return theList;
+        return this.theList;
     }
 
     public int compareItems(Item i1, Item i2) {

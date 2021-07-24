@@ -6,8 +6,11 @@
 package ucf.assignments;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,6 +58,8 @@ public class PersonalInventoryController {
 
         deleteColumn.setEditable(false);
 
+        //inventoryTable.setOnSort(e -> sortTable());
+
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         snColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -69,6 +74,15 @@ public class PersonalInventoryController {
                 = (TableColumn<Item, String> param) -> new EditingCell();
 
         valueColumn.setCellFactory(cellFactory);
+
+        valueColumn.sortTypeProperty().addListener(
+                (newValue) -> sortVal());
+
+        snColumn.sortTypeProperty().addListener(
+                (newValue) -> sortSN());
+
+        nameColumn.sortTypeProperty().addListener(
+                (newValue) -> sortName());
 
         deleteColumn.setCellValueFactory(
                 r -> new SimpleBooleanProperty(r.getValue() != null));
@@ -104,18 +118,6 @@ public class PersonalInventoryController {
         });
     }
 
-    public void sortTable() {
-        System.out.println("in sortable");
-        valueColumn.sortTypeProperty().addListener(
-                (observable, oldValue, newValue) -> sortVal());
-
-        snColumn.sortTypeProperty().addListener(
-                (observable, oldValue, newValue) -> sortSN());
-
-        nameColumn.sortTypeProperty().addListener(
-                (observable, oldValue, newValue) -> sortName());
-    }
-
     private void sortVal() {
         System.out.println("in sort");
         if(valueColumn.getSortType().equals(TableColumn.SortType.ASCENDING)){
@@ -130,7 +132,7 @@ public class PersonalInventoryController {
                     inventory.theList = new ArrayList<>(list);
                 }
 
-                System.out.println(inventory.getTheList());
+                System.out.println("VAL: " + inventory.getTheList());
 
                 return true;
             });
@@ -146,7 +148,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                }System.out.println(inventory.getTheList());
+                } System.out.println("VAL: " + inventory.getTheList());
 
                 return true;
             });
@@ -168,7 +170,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                }System.out.println(inventory.getTheList());
+                } System.out.println("SN: " + inventory.getTheList());
 
                 return true;
             });
@@ -184,7 +186,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                }System.out.println(inventory.getTheList());
+                } System.out.println("SN: " + inventory.getTheList());
 
                 return true;
             });
@@ -204,7 +206,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                }System.out.println(inventory.getTheList());
+                } System.out.println("NAME: " + inventory.getTheList());
 
                 return true;
             });
@@ -219,7 +221,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                }System.out.println(inventory.getTheList());
+                } System.out.println("NAME: " + inventory.getTheList());
 
                 return true;
             });
