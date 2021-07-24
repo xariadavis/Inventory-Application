@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TableOperationsTest {
     TableOperations test = new TableOperations();
     // declare a test ArrayList
-    ArrayList<Item> expected = new ArrayList<Item>();
+    ArrayList<Item> expected = new ArrayList<>();
     ArrayList<Item> actual = new ArrayList<>();
 
 

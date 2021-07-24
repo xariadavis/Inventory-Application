@@ -6,6 +6,7 @@
 package ucf.assignments;
 
 
+import javafx.collections.ObservableList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

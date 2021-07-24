@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -23,27 +24,34 @@ import javafx.util.Callback;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class PersonalInventoryController {
     TableOperations ops = new TableOperations();
     Inventory inventory = new Inventory();
     FileManagement fileManagement = new FileManagement();
+    Sorting sorting = new Sorting();
     ArrayList<Double> values = new ArrayList<>();
-    String value, name, sn;
-    Item item = new Item(value, sn, name);
-    Boolean status = false;
+    //Property<ObservableList<Item>> inventoryProperty = new SimpleObjectProperty<>(inventory.theList);
 
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
     @FXML public TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
     @FXML public TableColumn<Item, Boolean> deleteColumn = new TableColumn<>("");
-    @FXML private TableView<Item> inventoryTable;
-    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount;
+    @FXML private TableView<Item> inventoryTable, searchList;
+    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount;
     @FXML ImageView serialNumberImage, nameImage;
     @FXML JFXButton clearListButton, importButton, exportButton;
 
     public void initialize() {
+
+        Label placeholder = new Label();
+        placeholder.setText("No items found in inventory.");
+        placeholder.setTextFill(Color.valueOf("white"));
+        placeholder.setOpacity(0.5);
+        placeholder.setStyle("-fx-font-size: 14; -fx-font-family: 'Segoe UI Light', Regular;");
+        inventoryTable.setPlaceholder(placeholder);
 
         deleteColumn.setEditable(false);
 
@@ -59,17 +67,21 @@ public class PersonalInventoryController {
 
         Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
                 = (TableColumn<Item, String> param) -> new EditingCell();
+
         valueColumn.setCellFactory(cellFactory);
 
         deleteColumn.setCellValueFactory(
                 r -> new SimpleBooleanProperty(r.getValue() != null));
 
         deleteColumn.setCellFactory(
-                r -> new RemoveTablecell(inventoryTable, inventory.getTheList(), values, totalTF, totalField()));
+                r -> new RemoveTablecell(inventoryTable, inventory.getTheList(), totalTF, totalField(), itemCount));
 
         inventoryTable.getColumns().add(deleteColumn);
 
         snTF.textProperty().addListener((observableValue, oldValue, newValue) -> snTF.setText(newValue.toUpperCase()));
+
+        setTotalTF(totalTF, "Add items to list to see total");
+        setTotalCount(itemCount, "0 items");
 
         searchTable();
 
@@ -90,6 +102,127 @@ public class PersonalInventoryController {
                 valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
             }
         });
+    }
+
+    public void sortTable() {
+
+        valueColumn.sortTypeProperty().addListener(
+                (observable, oldValue, newValue) -> sortVal());
+
+        snColumn.sortTypeProperty().addListener(
+                (observable, oldValue, newValue) -> sortSN());
+
+        nameColumn.sortTypeProperty().addListener(
+                (observable, oldValue, newValue) -> sortName());
+    }
+
+    private void sortVal() {
+        System.out.println("in sort");
+        if(valueColumn.getSortType().equals(TableColumn.SortType.ASCENDING)){
+            inventoryTable.sortPolicyProperty().set(param -> {
+                Comparator<Item> comparator = (i1, i2) -> sorting.sortValueASC(i1, i2);
+                FXCollections.sort(inventoryTable.getItems(), comparator);
+
+                List<Item> list = inventoryTable.getItems();
+                if (list instanceof ArrayList<?>) {
+                    inventory.theList = (ArrayList<Item>) list;
+                } else {
+                    inventory.theList = new ArrayList<>(list);
+                }
+
+                System.out.println(inventory.getTheList());
+
+                return true;
+            });
+
+        } else if(valueColumn.getSortType().equals(TableColumn.SortType.DESCENDING)) {
+
+            inventoryTable.sortPolicyProperty().set(param -> {
+                Comparator<Item> comparator = (i1, i2) -> sorting.sortValueDESC(i1, i2);
+                FXCollections.sort(inventoryTable.getItems(), comparator);
+
+                List<Item> list = inventoryTable.getItems();
+                if (list instanceof ArrayList<?>) {
+                    inventory.theList = (ArrayList<Item>) list;
+                } else {
+                    inventory.theList = new ArrayList<>(list);
+                }System.out.println(inventory.getTheList());
+
+                return true;
+            });
+
+        }
+    }
+
+    private void sortSN() {
+        if(snColumn.getSortType().equals(TableColumn.SortType.ASCENDING)) {
+
+            inventoryTable.sortPolicyProperty().set(param -> {
+                Comparator<Item> comparator = (i1, i2) -> sorting.sortSNASC(i1, i2);
+                FXCollections.sort(inventoryTable.getItems(), comparator);
+
+                List<Item> list = inventoryTable.getItems();
+                if (list instanceof ArrayList<?>) {
+                    inventory.theList = (ArrayList<Item>) list;
+                } else {
+                    inventory.theList = new ArrayList<>(list);
+                }System.out.println(inventory.getTheList());
+
+                return true;
+            });
+
+        } else if(snColumn.getSortType().equals(TableColumn.SortType.DESCENDING)) {
+
+            inventoryTable.sortPolicyProperty().set(param -> {
+                Comparator<Item> comparator = (i1, i2) -> sorting.sortSNDESC(i1, i2);
+                FXCollections.sort(inventoryTable.getItems(), comparator);
+
+                List<Item> list = inventoryTable.getItems();
+                if (list instanceof ArrayList<?>) {
+                    inventory.theList = (ArrayList<Item>) list;
+                } else {
+                    inventory.theList = new ArrayList<>(list);
+                }System.out.println(inventory.getTheList());
+
+                return true;
+            });
+
+        }
+
+    }
+
+    private void sortName() {
+        if(nameColumn.getSortType().equals(TableColumn.SortType.ASCENDING)) {
+            inventoryTable.sortPolicyProperty().set(param -> {
+                Comparator<Item> comparator = (i1, i2) -> sorting.sortNameASC(i1, i2);
+                FXCollections.sort(inventoryTable.getItems(), comparator);
+
+                List<Item> list = inventoryTable.getItems();
+                if (list instanceof ArrayList<?>) {
+                    inventory.theList = (ArrayList<Item>) list;
+                } else {
+                    inventory.theList = new ArrayList<>(list);
+                }System.out.println(inventory.getTheList());
+
+                return true;
+            });
+
+        } else if(nameColumn.getSortType().equals(TableColumn.SortType.DESCENDING)) {
+            inventoryTable.sortPolicyProperty().set(param -> {
+                Comparator<Item> comparator = (i1, i2) -> sorting.sortNameDESC(i1, i2);
+                FXCollections.sort(inventoryTable.getItems(), comparator);
+
+                List<Item> list = inventoryTable.getItems();
+                if (list instanceof ArrayList<?>) {
+                    inventory.theList = (ArrayList<Item>) list;
+                } else {
+                    inventory.theList = new ArrayList<>(list);
+                }System.out.println(inventory.getTheList());
+
+                return true;
+            });
+
+        }
     }
 
     // close the application window
@@ -119,11 +252,9 @@ public class PersonalInventoryController {
     // add listener to search box
     public void searchTable() {
         inventoryTable.refresh();
-
         searchBox.textProperty().addListener((observableValue, oldValue, newValue) ->
-                inventoryTable.setItems(filterList(this.inventory.theList, newValue))
-        );
-
+                inventoryTable.getItems().setAll(filterList(this.inventory.theList, newValue)));
+        System.out.println("hi uhh" + inventory.getTheList());
         inventoryTable.refresh();
     }
 
@@ -135,6 +266,14 @@ public class PersonalInventoryController {
 
     public void setTotalTF(TextField totalTF, String total) {
         totalTF.setText(total);
+    }
+
+    public String setTotalItemCount() {
+        return String.format("%d items", inventory.getTheList().size());
+    }
+
+    public void setTotalCount(TextField itemCount, String itemTotal) {
+        itemCount.setText(itemTotal);
     }
 
     // catch invalid value input
@@ -185,7 +324,6 @@ public class PersonalInventoryController {
                 formattedCost = currency.format(Double.parseDouble(cellData.getValue().getValue()));
             }
             return new SimpleStringProperty(formattedCost);
-
         });
     }
 
@@ -257,6 +395,8 @@ public class PersonalInventoryController {
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(value, sn, name, this.inventory.theList);
+            inventoryTable.getItems().add(item);
+
             values.add(Double.parseDouble(value));
 
             System.out.println(values);
@@ -264,15 +404,16 @@ public class PersonalInventoryController {
             // call formatTableView to format the currency correctly
             formatTableview();
 
-            // add the created item to tableView
-            inventoryTable.getItems().add(item);
-
             refreshEvent();
 
             setTotalTF(totalTF, totalField());
+            setTotalCount(itemCount, setTotalItemCount());
 
-            System.out.println(inventory.getTheList() + " after add");
         }
+
+        System.out.println(inventory.getTheList() + " after add");
+        //inventory.sortList(inventoryTable);
+        System.out.println(inventory.getTheList() + " hopefully sorted list");
     }
 
 
@@ -291,6 +432,7 @@ public class PersonalInventoryController {
         try {
             item.setValue(itemStringCellEditEvent.getNewValue());
             setTotalTF(totalTF, totalField());
+            setTotalCount(itemCount, setTotalItemCount());
 
             // if valid -- refresh the table so it can be formatted correctly per the formatTableValue function
             inventoryTable.refresh();
@@ -376,7 +518,6 @@ public class PersonalInventoryController {
             inventoryTable.getItems().addAll(inventory.getTheList());
             formatTableview();
             inventoryTable.refresh();
-            System.out.println(inventory.getTheList() + "after import");
         } else if(file != null && file.getAbsolutePath().endsWith(".txt")) {
             fileManagement.TXTtoList(file.getAbsolutePath(), inventory.getTheList());
             inventoryTable.getItems().addAll(inventory.getTheList());
@@ -384,5 +525,7 @@ public class PersonalInventoryController {
             inventoryTable.refresh();
             System.out.println(inventory.getTheList() + "after import");
         }
+        setTotalCount(itemCount, setTotalItemCount());
+        setTotalCount(totalTF, totalField());
     }
 }
