@@ -6,7 +6,6 @@
 package ucf.assignments;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -15,25 +14,30 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class RemoveTablecell extends TableCell <Item, Boolean> {
     PersonalInventoryController controller = new PersonalInventoryController();
     TableOperations ops = new TableOperations();
     final JFXButton removeButton = new JFXButton("");
 
-    RemoveTablecell(TableView inventoryTable, ArrayList<Item> theList, TextField totaltf, String total, TextField itemCount){
+    RemoveTablecell(TableView inventoryTable, Inventory myInventory, TextField totaltf, String total, TextField itemCount) {
         setRemoveGraphic();
         removeButton.setOnAction(r -> {
+            System.out.println("PRE REFRESH:  " + inventoryTable.getItems());
             inventoryTable.refresh();
+            System.out.println("POST REFRESH: " + inventoryTable.getItems());
             int index = getTableRow().getIndex();
-            double oop = Double.parseDouble(theList.get(index).getValue());
-            ops.removeItem(index, theList);
-            System.out.println("in remove "+theList);
+
+
+
+            System.out.println("index " + index + " item name " + myInventory.theList.get(index).getName());
+            double oop = Double.parseDouble(myInventory.theList.get(index).getValue());
+            System.out.println("REMOVE CLASS "+ myInventory.theList);
             inventoryTable.getItems().remove(index);
+            ops.removeItem(index, myInventory.theList);
             inventoryTable.refresh();
 
-            int newItemCount = theList.size() - 1;
+            int newItemCount = myInventory.theList.size();
             String newItemString;
 
             if(newItemCount == 1) {
@@ -46,6 +50,7 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
             double newTotal = Double.parseDouble(total.replace("$","")) - oop;
             String string = String.format("$%.2f", newTotal);
             controller.setTotalTF(totaltf, String.valueOf(string));
+            System.out.println();
         });
     }
 

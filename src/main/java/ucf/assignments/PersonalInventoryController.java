@@ -74,7 +74,7 @@ public class PersonalInventoryController {
                 r -> new SimpleBooleanProperty(r.getValue() != null));
 
         deleteColumn.setCellFactory(
-                r -> new RemoveTablecell(inventoryTable, inventory.getTheList(), totalTF, totalField(), itemCount));
+                r -> new RemoveTablecell(inventoryTable, inventory, totalTF, totalField(), itemCount));
 
         inventoryTable.getColumns().add(deleteColumn);
 
@@ -105,7 +105,7 @@ public class PersonalInventoryController {
     }
 
     public void sortTable() {
-
+        System.out.println("in sortable");
         valueColumn.sortTypeProperty().addListener(
                 (observable, oldValue, newValue) -> sortVal());
 
