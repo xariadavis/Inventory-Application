@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="fixed remove bug">
+    <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="updated sort bug">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ucf/assignments/ValidatorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/OverrideSort.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventoryController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/RemoveTablecell.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/RemoveTablecell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/Inventory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/OverrideSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/OverrideSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/source-classes-mapping.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ucf/assignments/TableOperationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ucf/assignments/TableOperationsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,13 +118,13 @@
       <recent name="ucf.assignments" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.davis-0067-a5 [run]">
-    <configuration name="PersonalInventoryControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ValidatorTest">
+    <configuration name="ValidatorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.PersonalInventoryControllerTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -135,12 +140,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="PersonalInventoryControllerTest.atLeast100Items" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ValidatorTest.catchInvalidSerial" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.PersonalInventoryControllerTest.atLeast100Items&quot;" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest.catchInvalidSerial&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -156,12 +161,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="PersonalInventoryControllerTest.searchForItem_assertFalseSN" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ValidatorTest.catchInvalidValue" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.PersonalInventoryControllerTest.searchForItem_assertFalseSN&quot;" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest.catchInvalidValue&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -177,12 +182,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="PersonalInventoryControllerTest.searchForItem_assertTrueSN" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ValidatorTest.stringOver256" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.PersonalInventoryControllerTest.searchForItem_assertTrueSN&quot;" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest.stringOver256&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -198,34 +203,34 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="davis-0067-a5 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ValidatorTest.validateSerialNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest.validateSerialNumber&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="run" />
+            <option value=":test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.davis-0067-a5 [run]" />
-        <item itemvalue="Gradle.PersonalInventoryControllerTest.atLeast100Items" />
-        <item itemvalue="Gradle.PersonalInventoryControllerTest" />
-        <item itemvalue="Gradle.PersonalInventoryControllerTest.searchForItem_assertFalseSN" />
-        <item itemvalue="Gradle.PersonalInventoryControllerTest.searchForItem_assertTrueSN" />
+        <item itemvalue="Gradle.ValidatorTest" />
+        <item itemvalue="Gradle.ValidatorTest.stringOver256" />
+        <item itemvalue="Gradle.ValidatorTest.validateSerialNumber" />
+        <item itemvalue="Gradle.ValidatorTest.catchInvalidValue" />
+        <item itemvalue="Gradle.ValidatorTest.catchInvalidSerial" />
       </list>
     </recent_temporary>
   </component>
@@ -420,7 +425,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627145223870</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="updated sort bug">
+      <created>1627149042984</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1627149042984</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -458,6 +470,7 @@
     <MESSAGE value="fixed sort bug -- need to fix remove" />
     <MESSAGE value="successful testing" />
     <MESSAGE value="fixed remove bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed remove bug" />
+    <MESSAGE value="updated sort bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated sort bug" />
   </component>
 </project>

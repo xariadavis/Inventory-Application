@@ -23,16 +23,10 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
     RemoveTablecell(TableView inventoryTable, Inventory myInventory, TextField totaltf, String total, TextField itemCount) {
         setRemoveGraphic();
         removeButton.setOnAction(r -> {
-            System.out.println("PRE REFRESH:  " + inventoryTable.getItems());
             inventoryTable.refresh();
-            System.out.println("POST REFRESH: " + inventoryTable.getItems());
             int index = getTableRow().getIndex();
 
-
-
-            System.out.println("index " + index + " item name " + myInventory.theList.get(index).getName());
             double oop = Double.parseDouble(myInventory.theList.get(index).getValue());
-            System.out.println("REMOVE CLASS "+ myInventory.theList);
             inventoryTable.getItems().remove(index);
             ops.removeItem(index, myInventory.theList);
             inventoryTable.refresh();

@@ -6,11 +6,8 @@
 package ucf.assignments;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,13 +33,14 @@ public class PersonalInventoryController {
     FileManagement fileManagement = new FileManagement();
     Sorting sorting = new Sorting();
     ArrayList<Double> values = new ArrayList<>();
-    //Property<ObservableList<Item>> inventoryProperty = new SimpleObjectProperty<>(inventory.theList);
+    Validator validate = new Validator();
+
 
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
     @FXML public TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
     @FXML public TableColumn<Item, Boolean> deleteColumn = new TableColumn<>("");
-    @FXML private TableView<Item> inventoryTable, searchList;
+    @FXML private TableView<Item> inventoryTable;
     @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount;
     @FXML ImageView serialNumberImage, nameImage;
     @FXML JFXButton clearListButton, importButton, exportButton;
@@ -57,8 +55,6 @@ public class PersonalInventoryController {
         inventoryTable.setPlaceholder(placeholder);
 
         deleteColumn.setEditable(false);
-
-        //inventoryTable.setOnSort(e -> sortTable());
 
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         snColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
@@ -132,7 +128,7 @@ public class PersonalInventoryController {
                     inventory.theList = new ArrayList<>(list);
                 }
 
-                System.out.println("VAL: " + inventory.getTheList());
+                System.out.println("VAL ASC: " + inventory.getTheList());
 
                 return true;
             });
@@ -148,7 +144,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("VAL: " + inventory.getTheList());
+                } System.out.println("VAL DESC: " + inventory.getTheList());
 
                 return true;
             });
@@ -170,7 +166,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("SN: " + inventory.getTheList());
+                } System.out.println("SN ASC: " + inventory.getTheList());
 
                 return true;
             });
@@ -186,7 +182,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("SN: " + inventory.getTheList());
+                } System.out.println("SN DESC: " + inventory.getTheList());
 
                 return true;
             });
@@ -206,7 +202,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("NAME: " + inventory.getTheList());
+                } System.out.println("NAME ASC: " + inventory.getTheList());
 
                 return true;
             });
@@ -221,7 +217,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("NAME: " + inventory.getTheList());
+                } System.out.println("NAME DESC: " + inventory.getTheList());
 
                 return true;
             });
@@ -280,38 +276,6 @@ public class PersonalInventoryController {
         itemCount.setText(itemTotal);
     }
 
-    // catch invalid value input
-    public void catchInvalidValue() {
-        // try to addItemToTable
-        try {
-            addItemToTable();
-        } // if numberformatexception encountered, the user entered a non numerical value for the value field
-        catch(NumberFormatException e) {
-            // catch it and show a warning prompting them to enter a numerical value
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid input. Please enter a numerical value.");
-            alert.show();
-        }
-    }
-
-    // catch incorrectly formatted serial numbers
-    private boolean catchInvalidSerial(String serialNumber) {
-        // declare bool for a marker and initialize it to false
-        boolean flag = false;
-
-        // if inputted sn is 10 digits and contains only letters/numbers then change the bool marker to true
-        if(serialNumber.matches("^[a-zA-Z0-9]{10}$")) {
-            flag = true;
-        } else {
-            // else show an alert telling the user the format is incorrect
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid input. Please enter a serial number in the format of XXXXXXXXXX where X can be either a letter or digit");
-            alert.show();
-        }
-        // return bool marker
-        return flag;
-    }
-
     // if user only enters int, then convert to proper double format
     private void formatTableview() {
         // format value column
@@ -331,44 +295,6 @@ public class PersonalInventoryController {
         });
     }
 
-    // check is serial number already exists in database
-    public boolean validateSerialNumber(String serialNumber, boolean initialStatus) {
-        // initialize boolean marker to true since we want it to loop through correctly the first time
-        boolean flag = initialStatus;
-        // for (all the items in the list)
-        for(int i = 0; i < this.inventory.theList.size(); i++) {
-            // if i serial number matches the inputted serial number
-            if(this.inventory.theList.get(i).getSerialNumber().contains(serialNumber)) {
-                // show an alert telling the user the serial number already exists in the database
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Invalid input. Serial Number already exists in database");
-                alert.show();
-                // change the bool marker to false
-                flag = false;
-                break;
-            } else {
-                // bool marker true
-                serialNumberImage.setVisible(true);
-                flag = true;
-            }
-
-        }
-
-        // return bool marker
-        return flag;
-    }
-
-    public boolean validateString(String name) {
-        boolean flag = true;
-        if(name.length() < 2 || name.length() > 256) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid input. Name must be between 2 and 256 characters");
-            alert.show();
-            flag = false;
-        }
-        return flag;
-    }
-
     // refreshes the textfields so user does not have to manually reset each time
     public void refreshEvent() {
         // set value textfeild to null
@@ -381,6 +307,25 @@ public class PersonalInventoryController {
         nameTF.clear();
     }
 
+    public void showError(int errorNumber) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        switch (errorNumber) {
+            case 1:
+                alert.setContentText("Invalid input. Please enter a numerical value.");
+                break;
+            case 2:
+                alert.setContentText("Invalid input. Please enter a serial number in the format of XXXXXXXXXX where X can be either a letter or digit");
+                break;
+            case 3:
+                alert.setContentText("Invalid input. Serial Number already exists in database");
+                break;
+            case 4:
+                alert.setContentText("Invalid input. Name must be between 2 and 256 characters");
+                break;
+        }
+        alert.show();
+    }
+
     // add event to tableview
     public void addItemToTable() {
 
@@ -391,11 +336,11 @@ public class PersonalInventoryController {
 
 
         // if the serial number is not invalid/a duplicate, then add the event
-        if(catchInvalidSerial(sn) && validateSerialNumber(sn, true) && validateString(name)) {
+        if(validate.catchInvalidValue(value) && validate.catchInvalidSerial(sn) && validate.validateSerialNumber(sn, true, this.inventory.getTheList(), serialNumberImage) && validate.validateString(name)) {
 
             inventoryTable.refresh();
 
-            validateSerialNumber(sn, true);
+            validate.validateSerialNumber(sn, true, this.inventory.getTheList(), serialNumberImage);
 
             // create and item with the converted fields and call addToTable in ops to add it to the array list
             Item item = ops.addToTable(value, sn, name, this.inventory.theList);
@@ -410,7 +355,7 @@ public class PersonalInventoryController {
 
             refreshEvent();
 
-            setTotalTF(totalTF, totalField());
+            //setTotalTF(totalTF, totalField());
             setTotalCount(itemCount, setTotalItemCount());
 
         }
@@ -462,7 +407,7 @@ public class PersonalInventoryController {
         String oldSerialNumber = item.getSerialNumber();
 
         // if the edited value is in the correct format and not in the database
-        if(catchInvalidSerial(itemStringCellEditEvent.getNewValue()) && validateSerialNumber(itemStringCellEditEvent.getNewValue(), false)) {
+        if(validate.catchInvalidSerial(itemStringCellEditEvent.getNewValue()) && validate.validateSerialNumber(itemStringCellEditEvent.getNewValue(), false, this.inventory.getTheList(), serialNumberImage)) {
             // set it to item.setSerialNumber
             item.setSerialNumber(itemStringCellEditEvent.getNewValue().toUpperCase());
             serialNumberImage.setVisible(false);
@@ -482,7 +427,7 @@ public class PersonalInventoryController {
         String oldName = item.getName();
 
         // if the new string name is in a valid format
-        if(validateString(itemStringCellEditEvent.getNewValue())) {
+        if(validate.validateString(itemStringCellEditEvent.getNewValue())) {
             // set the edited string name
             item.setName(itemStringCellEditEvent.getNewValue());
         } else {

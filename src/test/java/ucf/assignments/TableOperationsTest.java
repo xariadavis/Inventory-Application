@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TableOperationsTest {
     TableOperations test = new TableOperations();
-    // declare a test ArrayList
     ArrayList<Item> expected = new ArrayList<>();
     ArrayList<Item> actual = new ArrayList<>();
 
@@ -21,6 +20,7 @@ class TableOperationsTest {
     }
 
     @Test
+    // The user shall be able to add a new inventory item
     void addToTable() {
 
         // set expected test list
@@ -31,19 +31,6 @@ class TableOperationsTest {
 
         // assert that the two arrays are equal
         assertEquals(expected.toString(), actual.toString());
-    }
-
-    @Test
-    void limitText() {
-
-        // set test expected string that is 256 characters
-        String expected = "abcgxprDMo8kNNry91IqwiSGqK9XaypHlGWoHeMZwbB55NOwMHSYW1PTfSrj16sg7uR1t8suCHGFHr1PBfASH6Thh7WUJVAevDkt0PLj8eSaoZFftQPEaMoRKRcckIkGMts0LlbVg6I2HFK4B8K2aZqakp2tjARlwfVaP8hDnInmaQ51MN5ZF47CU6pT7MMjPa4CqCw8si0rFtWQ9odGLKmHKGORUDhvQgyYEJiK47eh4JQufpczvtwfhkGrsWth";
-
-        // set actual string = to limitText (expected + more characters)
-        String actual = test.limitText("abcgxprDMo8kNNry91IqwiSGqK9XaypHlGWoHeMZwbB55NOwMHSYW1PTfSrj16sg7uR1t8suCHGFHr1PBfASH6Thh7WUJVAevDkt0PLj8eSaoZFftQPEaMoRKRcckIkGMts0LlbVg6I2HFK4B8K2aZqakp2tjARlwfVaP8hDnInmaQ51MN5ZF47CU6pT7MMjPa4CqCw8si0rFtWQ9odGLKmHKGORUDhvQgyYEJiK47eh4JQufpczvtwfhkGrsWth9CIaqM4yt9FWT4bY5mqxmoL5iIFp2qXxp0TzjMNH970FDGN2lP5CGP7KDXoBCO5tJ4336OYlURcGlyGyjajmp1UI03X4tgnLqT69CtbikPLRggbnV1WbWnAZfqh2IeBakaEaPBZZUY0CmGIzowUZ9PEmrluQe7enFyLka48IPzol8HQBwAhJVzO0Mx5dWaHNBWEOZirfU1k4bG81DrcT4eE4uU7DRBIHnobUUeGfYRESjkDc6GnObv5pIQFYYfl7");
-
-        // assertEquals (expected, actual)
-        assertEquals(expected, actual);
     }
 
     @Test

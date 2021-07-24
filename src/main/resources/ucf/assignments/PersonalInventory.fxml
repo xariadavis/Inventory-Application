@@ -42,7 +42,7 @@
       </AnchorPane>
       <Pane layoutX="29.0" layoutY="111.0" prefHeight="125.0" prefWidth="708.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
-            <JFXButton fx:id="addButton" ellipsisString="" layoutX="554.0" layoutY="70.0" onAction="#catchInvalidValue" prefHeight="35.0" prefWidth="107.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Add Item         " textFill="WHITE">
+            <JFXButton fx:id="addButton" ellipsisString="" layoutX="554.0" layoutY="70.0" onAction="#addItemToTable" prefHeight="35.0" prefWidth="107.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Add Item         " textFill="WHITE">
                <font>
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
