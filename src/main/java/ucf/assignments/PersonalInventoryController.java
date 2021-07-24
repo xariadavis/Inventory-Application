@@ -235,7 +235,7 @@ public class PersonalInventoryController {
 
 
     // create method to return true if item matches search text
-    private boolean searchForItem(Item item, String searchText){
+    public boolean searchForItem(Item item, String searchText){
         return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
                 (item.getSerialNumber().toLowerCase().contains(searchText.toLowerCase()));
     }

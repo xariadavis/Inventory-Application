@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ucf.assignments.TableOperationsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-07-23T04:23:03" hostname="DESKTOP-9IC3LMO" time="0.04">
-  <properties/>
-  <testcase name="removeItem()" classname="ucf.assignments.TableOperationsTest" time="0.04"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

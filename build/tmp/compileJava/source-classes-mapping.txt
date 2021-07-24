@@ -4,16 +4,16 @@ ucf/assignments/PersonalInventory.java
  ucf.assignments.PersonalInventory
  ucf.assignments.PersonalInventory$1
  ucf.assignments.PersonalInventory$2
-ucf/assignments/TableOperations.java
- ucf.assignments.TableOperations
+ucf/assignments/FileManagement.java
+ ucf.assignments.FileManagement
 ucf/assignments/Inventory.java
  ucf.assignments.Inventory
 ucf/assignments/Sorting.java
  ucf.assignments.Sorting
 ucf/assignments/Item.java
  ucf.assignments.Item
-ucf/assignments/FileManagement.java
- ucf.assignments.FileManagement
+ucf/assignments/TableOperations.java
+ ucf.assignments.TableOperations
 ucf/assignments/RemoveTablecell.java
  ucf.assignments.RemoveTablecell
 ucf/assignments/PersonalInventoryController.java
