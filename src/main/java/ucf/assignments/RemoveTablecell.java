@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 
 public class RemoveTablecell extends TableCell <Item, Boolean> {
     PersonalInventoryController controller = new PersonalInventoryController();
@@ -44,8 +45,8 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
 
             controller.setTotalCount(itemCount, newItemString);
             double newTotal = Double.parseDouble(total.replaceAll("[$,]","")) - oop;
-            String string = String.format("$%.2f", newTotal);
-            controller.setTotalTF(totaltf, String.valueOf(string));
+            DecimalFormat formatter = new DecimalFormat("$#,##0.00");
+            controller.setTotalTF(totaltf, formatter.format(newTotal));
         });
     }
 
