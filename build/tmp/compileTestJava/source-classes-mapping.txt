@@ -1,8 +1,0 @@
-ucf/assignments/ValidatorTest.java
- ucf.assignments.ValidatorTest
-ucf/assignments/SortingTest.java
- ucf.assignments.SortingTest
-ucf/assignments/PersonalInventoryControllerTest.java
- ucf.assignments.PersonalInventoryControllerTest
-ucf/assignments/TableOperationsTest.java
- ucf.assignments.TableOperationsTest
