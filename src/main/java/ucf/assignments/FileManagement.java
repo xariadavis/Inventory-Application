@@ -6,7 +6,6 @@
 package ucf.assignments;
 
 
-import javafx.collections.ObservableList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,7 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileManagement {
-    public void listToHTML(String outputPath, ArrayList<Item> theList) {
+    String title;
+    Inventory inventory = new Inventory(title);
+
+    public void listToHTML(String outputPath, ArrayList<Item> theList, String title) {
 
         File output = new File(outputPath);
         PrintStream outputFile = null;
@@ -53,7 +55,7 @@ public class FileManagement {
                 table tr:nth-child(odd) td{
                 \tbackground-color: #B1A2CA;
                 }</style></head>""");
-        outputFile.println("<h1>Inventory Table</h1>");
+        outputFile.format("<h1>%s</h1>", title);
         outputFile.println("<table>");
         outputFile.println("<tr>");
         outputFile.println("<th>Values($)</th> <th>Serial Number</th> <th>Name</th>");

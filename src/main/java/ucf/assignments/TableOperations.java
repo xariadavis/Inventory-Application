@@ -31,8 +31,8 @@ public class TableOperations {
     }
 
     // remove item
-    public void removeItem(int index, ArrayList<Item> theList) {
-        theList.remove(index);
+    public void removeItem(Item item, ArrayList<Item> theList) {
+        theList.remove(item);
     }
 
 }

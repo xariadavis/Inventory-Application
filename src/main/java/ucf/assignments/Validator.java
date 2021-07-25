@@ -48,7 +48,7 @@ public class Validator {
         // for (all the items in the list)
         for(int i = 0; i < theList.size(); i++) {
             // if i serial number matches the inputted serial number
-            if(theList.get(i).getSerialNumber().contains(serialNumber)) {
+            if(theList.get(i).getSerialNumber().contains(serialNumber.toUpperCase())) {
                 // show an alert telling the user the serial number already exists in the database
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Invalid input. Serial Number already exists in database");
@@ -58,7 +58,7 @@ public class Validator {
                 break;
             } else {
                 // bool marker true
-                serialNumberImage.setVisible(true);
+                serialNumberImage.setVisible(false);
                 flag = true;
             }
 

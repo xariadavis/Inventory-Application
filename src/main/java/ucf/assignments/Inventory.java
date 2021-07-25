@@ -6,15 +6,30 @@
 
 package ucf.assignments;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
 
 public class Inventory {
+    String title = "Inventory";
     public ArrayList<Item> theList = new ArrayList<>();
+
+    public Inventory(String title) {
+        this.title = title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        if(title == null) {
+            title = "Inventory";
+        } else {
+            title = getTitle();
+        }
+        return title;
+    }
 
     public ArrayList<Item> getTheList() {
         return this.theList;

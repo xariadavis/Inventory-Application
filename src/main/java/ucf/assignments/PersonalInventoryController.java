@@ -11,15 +11,20 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -29,19 +34,20 @@ import java.util.List;
 
 public class PersonalInventoryController {
     TableOperations ops = new TableOperations();
-    Inventory inventory = new Inventory();
+    String title;
+    Inventory inventory = new Inventory(title);
     FileManagement fileManagement = new FileManagement();
     Sorting sorting = new Sorting();
     ArrayList<Double> values = new ArrayList<>();
     Validator validate = new Validator();
 
-
+    @FXML private AnchorPane Parent;
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
     @FXML public TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
     @FXML public TableColumn<Item, Boolean> deleteColumn = new TableColumn<>("");
     @FXML private TableView<Item> inventoryTable;
-    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount;
+    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount, listTitleTF;
     @FXML ImageView serialNumberImage, nameImage;
     @FXML JFXButton clearListButton, importButton, exportButton;
 
@@ -53,6 +59,8 @@ public class PersonalInventoryController {
         placeholder.setOpacity(0.5);
         placeholder.setStyle("-fx-font-size: 14; -fx-font-family: 'Segoe UI Light', Regular;");
         inventoryTable.setPlaceholder(placeholder);
+
+        handleToolTips();
 
         deleteColumn.setEditable(false);
 
@@ -90,7 +98,7 @@ public class PersonalInventoryController {
 
         snTF.textProperty().addListener((observableValue, oldValue, newValue) -> snTF.setText(newValue.toUpperCase()));
 
-        setTotalTF(totalTF, "Add items to list to see total");
+        setTotalTF(totalTF, "$0.00");
         setTotalCount(itemCount, "0 items");
 
         searchTable();
@@ -98,13 +106,25 @@ public class PersonalInventoryController {
         // listener for serial number textfield
         snTF.textProperty().addListener(((observable, oldValue, newValue) -> { int s = newValue.length();
             snWordCount.setText("Character Count: " + s);
-            serialNumberImage.setVisible(s == 10);
+            if(s == 10) {
+                serialNumberImage.setVisible(true);
+                snWordCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+            } else {
+                serialNumberImage.setVisible(false);
+                snWordCount.setStyle("-fx-text-fill:  #6d2bf8; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+            }
         }));
 
         // listener for name textfield
         nameTF.textProperty().addListener(((observable, oldValue, newValue) -> { int n = newValue.length();
             nameWordCount.setText("Character Count: " + n);
-            nameImage.setVisible(n >= 2 && n <= 256);
+            if(n >= 2 && n <= 256) {
+                nameImage.setVisible(true);
+                nameWordCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+            } else {
+                nameImage.setVisible(false);
+                nameWordCount.setStyle("-fx-text-fill:  #6d2bf8; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+            }
         }));
 
         valueTF.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -112,6 +132,20 @@ public class PersonalInventoryController {
                 valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
             }
         });
+    }
+
+    private void handleToolTips() {
+        Tooltip importTip = new Tooltip("Import file");
+        importTip.setShowDelay(Duration.seconds(0.05));
+        importButton.setTooltip(importTip);
+
+        Tooltip exportTip = new Tooltip("Export file");
+        exportTip.setShowDelay(Duration.seconds(0.05));
+        exportButton.setTooltip(exportTip);
+
+        Tooltip clearTip = new Tooltip("Clear list");
+        clearTip.setShowDelay(Duration.seconds(0.05));
+        clearListButton.setTooltip(clearTip);
     }
 
     private void sortVal() {
@@ -236,6 +270,7 @@ public class PersonalInventoryController {
 
     // create method to return true if item matches search text
     public boolean searchForItem(Item item, String searchText){
+        inventoryTable.refresh();
         return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
                 (item.getSerialNumber().toLowerCase().contains(searchText.toLowerCase()));
     }
@@ -246,6 +281,7 @@ public class PersonalInventoryController {
         for (Item item : list){
             if(searchForItem(item, searchText)) filteredList.add(item);
         }
+
         return FXCollections.observableList(filteredList);
     }
 
@@ -254,14 +290,14 @@ public class PersonalInventoryController {
         inventoryTable.refresh();
         searchBox.textProperty().addListener((observableValue, oldValue, newValue) ->
                 inventoryTable.getItems().setAll(filterList(this.inventory.theList, newValue)));
-        System.out.println("hi uhh" + inventory.getTheList());
         inventoryTable.refresh();
     }
 
     // populate total data
     public String totalField() {
         double total = inventory.getTheList().stream().mapToDouble(item -> Double.parseDouble(item.getValue())).sum();
-        return String.format("$%.2f", total);
+        DecimalFormat formatter = new DecimalFormat("$#,##0.00");
+        return formatter.format(total);
     }
 
     public void setTotalTF(TextField totalTF, String total) {
@@ -269,7 +305,13 @@ public class PersonalInventoryController {
     }
 
     public String setTotalItemCount() {
-        return String.format("%d items", inventory.getTheList().size());
+        String itemString;
+        if(inventory.getTheList().size() == 1) {
+            itemString = "1 item";
+        } else {
+            itemString = String.format("%d items", inventory.getTheList().size());
+        }
+        return itemString;
     }
 
     public void setTotalCount(TextField itemCount, String itemTotal) {
@@ -277,9 +319,9 @@ public class PersonalInventoryController {
     }
 
     // if user only enters int, then convert to proper double format
-    private void formatTableview() {
+    private void formatValueColumn() {
         // format value column
-        DecimalFormat currency = new DecimalFormat("$0.00");
+        DecimalFormat currency = new DecimalFormat("$#,##0.00");
 
         valueColumn.setCellValueFactory(cellData -> {
             String oldString = cellData.getValue().getValue();
@@ -307,25 +349,6 @@ public class PersonalInventoryController {
         nameTF.clear();
     }
 
-    public void showError(int errorNumber) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        switch (errorNumber) {
-            case 1:
-                alert.setContentText("Invalid input. Please enter a numerical value.");
-                break;
-            case 2:
-                alert.setContentText("Invalid input. Please enter a serial number in the format of XXXXXXXXXX where X can be either a letter or digit");
-                break;
-            case 3:
-                alert.setContentText("Invalid input. Serial Number already exists in database");
-                break;
-            case 4:
-                alert.setContentText("Invalid input. Name must be between 2 and 256 characters");
-                break;
-        }
-        alert.show();
-    }
-
     // add event to tableview
     public void addItemToTable() {
 
@@ -351,18 +374,14 @@ public class PersonalInventoryController {
             System.out.println(values);
 
             // call formatTableView to format the currency correctly
-            formatTableview();
+            formatValueColumn();
 
             refreshEvent();
 
-            //setTotalTF(totalTF, totalField());
+            setTotalTF(totalTF, totalField());
             setTotalCount(itemCount, setTotalItemCount());
 
         }
-
-        System.out.println(inventory.getTheList() + " after add");
-        //inventory.sortList(inventoryTable);
-        System.out.println(inventory.getTheList() + " hopefully sorted list");
     }
 
 
@@ -375,7 +394,7 @@ public class PersonalInventoryController {
         // set a variable to the old value -- set this if the user enters invalid input
         String oldValue = item.getValue();
 
-        formatTableview();
+        formatValueColumn();
         // try to set the value the user enters
 
         try {
@@ -448,7 +467,7 @@ public class PersonalInventoryController {
         File file = output.showSaveDialog(null);
         if (file != null && file.getAbsolutePath().endsWith(".html")) {
             // call the to outfile method in the list class and write to output
-            fileManagement.listToHTML(file.getAbsolutePath(), inventory.getTheList());
+            fileManagement.listToHTML(file.getAbsolutePath(), inventory.getTheList(), inventory.getTitle());
         } else if(file != null && file.getAbsolutePath().endsWith(".txt")){
             fileManagement.listToTXT(file.getAbsolutePath(), inventory.getTheList());
         }
@@ -463,18 +482,57 @@ public class PersonalInventoryController {
         // show open dialog
         File file = output.showOpenDialog(null);
         if (file != null && file.getAbsolutePath().endsWith(".html")) {
+            clearList();
             fileManagement.HTMLtoList(file.getAbsolutePath(), inventory.getTheList());
+            listTitleTF.setText(inventory.getTitle());
             inventoryTable.getItems().addAll(inventory.getTheList());
-            formatTableview();
+            formatValueColumn();
             inventoryTable.refresh();
         } else if(file != null && file.getAbsolutePath().endsWith(".txt")) {
+            clearList();
             fileManagement.TXTtoList(file.getAbsolutePath(), inventory.getTheList());
             inventoryTable.getItems().addAll(inventory.getTheList());
-            formatTableview();
+            formatValueColumn();
             inventoryTable.refresh();
-            System.out.println(inventory.getTheList() + "after import");
         }
         setTotalCount(itemCount, setTotalItemCount());
         setTotalCount(totalTF, totalField());
+    }
+
+    public void onEnterName(ActionEvent actionEvent) {
+        nameTF.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    addItemToTable();
+                    valueTF.requestFocus();
+                }
+            }
+        });
+    }
+
+    public void saveListTitle(ActionEvent actionEvent) {
+        listTitleTF.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    inventory.setTitle(listTitleTF.getText());
+
+                    if(listTitleTF.getText().isBlank()) {
+                        listTitleTF.setText("Inventory");
+                    }
+
+                    Parent.requestFocus();
+                }
+            }
+        });
+    }
+
+    public void clearList() {
+        inventoryTable.getItems().clear();
+        // call the option class and clearList to clear the actual array list
+        this.inventory.getTheList().clear();
+        setTotalTF(totalTF, totalField());
+        setTotalCount(itemCount, setTotalItemCount());
     }
 }

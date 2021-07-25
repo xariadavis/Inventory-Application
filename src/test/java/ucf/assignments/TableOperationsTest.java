@@ -48,7 +48,7 @@ class TableOperationsTest {
         actual.add(actualItem);
 
         //call the removeLabel method with the test params
-        test.removeItem(0, actual);
+        test.removeItem(actualItem, actual);
 
         // assert that the two arrays are null
         assertEquals(expected, actual);

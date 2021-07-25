@@ -24,11 +24,13 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
         setRemoveGraphic();
         removeButton.setOnAction(r -> {
             inventoryTable.refresh();
-            int index = getTableRow().getIndex();
+            Item item = getTableRow().getItem();
 
-            double oop = Double.parseDouble(myInventory.theList.get(index).getValue());
-            inventoryTable.getItems().remove(index);
-            ops.removeItem(index, myInventory.theList);
+            double oop = Double.parseDouble(item.getValue());
+
+            inventoryTable.getItems().remove(item);
+            ops.removeItem(item, myInventory.theList);
+
             inventoryTable.refresh();
 
             int newItemCount = myInventory.theList.size();
@@ -41,10 +43,9 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
             }
 
             controller.setTotalCount(itemCount, newItemString);
-            double newTotal = Double.parseDouble(total.replace("$","")) - oop;
+            double newTotal = Double.parseDouble(total.replaceAll("[$,]","")) - oop;
             String string = String.format("$%.2f", newTotal);
             controller.setTotalTF(totaltf, String.valueOf(string));
-            System.out.println();
         });
     }
 
