@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -21,22 +22,22 @@
             <TableColumn id="nameColumn" fx:id="nameColumn" minWidth="20.0" onEditCommit="#editItemNameInTable" prefWidth="450.0" resizable="false" text="Name" />
         </columns>
       </TableView>
-      <ImageView fitHeight="65.0" fitWidth="1000.0" layoutY="2.0" pickOnBounds="true" style="-fx-border-radius: 15; -fx-background-radius: 15;">
+      <ImageView fx:id="headerImage" fitHeight="65.0" fitWidth="1000.0" layoutY="2.0" pickOnBounds="true" style="-fx-border-radius: 15; -fx-background-radius: 15;">
          <image>
-            <Image url="@../../../../../images/smokepurp%20(2).png" />
+            <Image url="@../../../../../images/smokepurp(2).png" />
          </image>
       </ImageView>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="65.0" prefWidth="1000.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <AnchorPane fx:id="headerPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="65.0" prefWidth="1000.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
-            <JFXButton fx:id="exitButton" layoutX="941.0" layoutY="14.0" onAction="#exitWindow" prefHeight="35.0" prefWidth="45.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Exit" textFill="WHITE">
+            <JFXButton fx:id="exitButton" layoutX="941.0" layoutY="14.0" onAction="#exitWindow" prefHeight="35.0" prefWidth="45.0" ripplerFill="#1f78bc" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Exit" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
             </JFXButton>
             <JFXButton fx:id="searchButton" layoutX="217.0" layoutY="14.0" prefHeight="35.0" prefWidth="36.0" text=" " />
-            <ImageView fitHeight="40.0" fitWidth="209.0" layoutX="393.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo1" fitHeight="40.0" fitWidth="209.0" layoutX="393.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/network%20(1).png" />
+                  <Image url="@../../../../../images/network1.png" />
                </image>
             </ImageView>
             <Label layoutX="452.0" layoutY="18.0" prefHeight="30.0" prefWidth="97.0" text="s h e l v e d" textAlignment="CENTER" textFill="WHITE">
@@ -47,27 +48,28 @@
                   <Insets />
                </opaqueInsets>
             </Label>
-            <ImageView fitHeight="40.0" fitWidth="209.0" layoutX="566.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo2" fitHeight="40.0" fitWidth="209.0" layoutX="566.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/network%20(2).png" />
+                  <Image url="@../../../../../images/network2.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Pane layoutX="29.0" layoutY="111.0" prefHeight="125.0" prefWidth="708.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <Pane fx:id="inputPane" layoutX="29.0" layoutY="111.0" prefHeight="125.0" prefWidth="708.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
          <children>
-            <JFXButton fx:id="addButton" ellipsisString="" layoutX="554.0" layoutY="70.0" onAction="#addItemToTable" prefHeight="35.0" prefWidth="107.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Add Item         " textFill="WHITE">
+            <JFXButton fx:id="addButton" ellipsisString="" layoutX="573.0" layoutY="70.0" onAction="#addItemToTable" prefHeight="35.0" prefWidth="107.0" ripplerFill="#fb91ff" style="-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #211350;" text="Add Item         " textFill="WHITE">
                <font>
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
             </JFXButton>
-            <ImageView fx:id="serialNumberImage" fitHeight="37.0" fitWidth="302.0" layoutX="360.0" layoutY="17.0" pickOnBounds="true" visible="false">
+            <ImageView fx:id="serialNumberImage" fitHeight="37.0" fitWidth="302.0" layoutX="379.0" layoutY="17.0" pickOnBounds="true" visible="false">
                <image>
                   <Image url="@../../../../../images/ValSNBackground.png" />
                </image>
             </ImageView>
             <ImageView fx:id="valueImage" fitHeight="39.0" fitWidth="304.0" layoutX="29.0" layoutY="16.0" pickOnBounds="true" visible="false">
                <image>
+                  <Image url="@../../../../../images/ValSNBackground.png" />
                   <Image url="@../../../../../images/ValSNBackground.png" />
                </image>
             </ImageView>
@@ -81,7 +83,7 @@
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="snTF" layoutX="361.0" layoutY="18.0" prefHeight="35.0" prefWidth="300.0" promptText="Serial Number...." style="-fx-background-color: #1B1143; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;">
+            <TextField fx:id="snTF" layoutX="380.0" layoutY="18.0" prefHeight="35.0" prefWidth="300.0" promptText="Serial Number...." style="-fx-background-color: #1B1143; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;">
                <font>
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
@@ -96,34 +98,29 @@
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="16.0" fitWidth="200.0" layoutX="632.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="16.0" fitWidth="200.0" layoutX="651.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../images/plus.png" />
                </image>
             </ImageView>
-            <TextField fx:id="snWordCount" alignment="CENTER_RIGHT" editable="false" layoutX="513.0" layoutY="51.0" prefHeight="21.0" prefWidth="149.0" style="-fx-text-fill: #6d2bf8; -fx-background-color: transparent;">
+            <TextField fx:id="snWordCount" alignment="CENTER_RIGHT" editable="false" layoutX="532.0" layoutY="52.0" prefHeight="21.0" prefWidth="149.0" style="-fx-text-fill: #6d2bf8; -fx-background-color: transparent;">
                <font>
                   <Font name="Segoe UI Light" size="10.0" />
                </font>
             </TextField>
-            <Label layoutX="41.0" layoutY="25.0" text="\$" textFill="WHITE">
+            <Label fx:id="dollarSignLabel" layoutX="41.0" layoutY="25.0" text="\$" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TextField fx:id="searchBox" layoutX="714.0" layoutY="282.0" onAction="#searchTable" prefHeight="35.0" prefWidth="244.0" promptText="Search..." style="-fx-background-color: #160f38; -fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff;">
+      <TextField fx:id="searchBox" layoutX="714.0" layoutY="282.0" onAction="#searchTable" prefHeight="35.0" prefWidth="258.0" promptText="Search..." style="-fx-background-color: #160f38; -fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff;">
          <font>
             <Font name="Segoe UI Light" size="13.0" />
          </font>
       </TextField>
-      <ImageView fitHeight="125.0" fitWidth="171.0" layoutX="766.0" layoutY="111.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../../../../images/totalBackground.png" />
-         </image>
-      </ImageView>
-      <Pane layoutX="768.0" layoutY="113.0" prefHeight="121.0" prefWidth="167.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15;">
+      <Pane fx:id="totalPane" layoutX="787.0" layoutY="111.0" prefHeight="125.0" prefWidth="171.0" style="-fx-background-color: #211350; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 1; -fx-border-color: white;">
          <children>
             <TextField fx:id="totalTF" alignment="CENTER" editable="false" layoutX="8.0" layoutY="20.0" prefHeight="77.0" prefWidth="149.0" style="-fx-text-fill: white; -fx-background-color: transparent;">
                <font>
@@ -141,17 +138,17 @@
             </Label>
          </children>
       </Pane>
-      <ImageView fitHeight="24.0" fitWidth="200.0" layoutX="659.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="exportImage" fitHeight="24.0" fitWidth="200.0" layoutX="659.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../images/download32.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="200.0" layoutX="605.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="importImage" fitHeight="24.0" fitWidth="200.0" layoutX="605.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../images/upload32.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="200.0" layoutX="553.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="clearListImage" fitHeight="24.0" fitWidth="200.0" layoutX="553.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../images/clear32.png" />
          </image>
@@ -169,5 +166,6 @@
             <Font name="Segoe UI Light" size="25.0" />
          </font>
       </TextField>
+      <JFXToggleButton fx:id="modeToggle" layoutY="58.0" onAction="#setMode" text="Mode" toggleColor="#242636" toggleLineColor="#26aefb" />
    </children>
 </AnchorPane>

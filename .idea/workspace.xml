@@ -5,35 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="design changes">
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/EditingCell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/FileManagement.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/Inventory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/Item.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventory$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventory$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/PersonalInventoryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/RemoveTablecell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/Sorting.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ucf/assignments/TableOperations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ucf/assignments/PersonalInventoryControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ucf/assignments/SortingTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/ucf/assignments/TableOperationsTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/ucf.assignments.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/ucf/assignments/PersonalInventory.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/ucf/assignments/css/asahi.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/ucf/assignments/css/htmlTable.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/ucf/assignments/css/tableview.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/ucf/assignments/css/test.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/source-classes-mapping.txt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/davis-0067-a5 light theme.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/smokepurp (2).png" beforeDir="false" afterPath="$PROJECT_DIR$/images/smokepurp(2).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +204,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--stacktrace" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -476,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627192965445</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="design changes">
+      <created>1627193256095</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1627193256095</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
