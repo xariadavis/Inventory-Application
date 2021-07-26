@@ -32,7 +32,7 @@ class EditingCell extends TableCell<Item, String> {
                     -fx-border-radius: 15;
                     -fx-font-family: 'Segoe UI Light', Regular;
                     -fx-text-fill: white;
-                    -fx-background-color:  #211350;""".indent(4));
+                    -fx-background-color:  #1f1d2c;""".indent(4));
         }
     }
 

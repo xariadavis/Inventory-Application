@@ -62,7 +62,6 @@ public class PersonalInventoryController {
     private boolean setMode() {
         boolean mode;
 
-
         File file = new File("images/dark/headerbg.png");
         Image image = new Image(file.toURI().toString());
         headerImage.setImage(image);
@@ -129,7 +128,7 @@ public class PersonalInventoryController {
 
         } else {
             mode = false;
-
+            modeToggle.setDisable(true);
             File logo1Pic = new File("images/dark/network1.png");
             Image logo = new Image(logo1Pic.toURI().toString());
             logo1.setImage(logo);
@@ -156,15 +155,19 @@ public class PersonalInventoryController {
             totalPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #26aefb; -fx-border-width: 2;");
 
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #ffffff;");
-            searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff; -fx-border-width: 2");
+            searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff; -fx-border-width: 2;");
 
             inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
             inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
+
         }
+
         return mode;
     }
 
     public void initialize() {
+
+        modeToggle.setSelected(true);
 
         Label placeholder = new Label();
         placeholder.setText("No items found in inventory.");
@@ -173,7 +176,6 @@ public class PersonalInventoryController {
         placeholder.setStyle("-fx-font-size: 14; -fx-font-family: 'Segoe UI Light', Regular;");
         inventoryTable.setPlaceholder(placeholder);
 
-        setMode();
         handleToolTips();
 
         deleteColumn.setEditable(false);
@@ -220,57 +222,24 @@ public class PersonalInventoryController {
         // listener for serial number textfield
         snTF.textProperty().addListener(((observable, oldValue, newValue) -> { int s = newValue.length();
             snWordCount.setText("Character Count: " + s);
-            if(setMode()) {
-                inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
-                inventoryTable.getStylesheets().remove("ucf/assignments/css/tableview.css");
-                if(s == 10) {
-                    serialNumberImage.setVisible(true);
-                    snTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2; -fx-border-color: #f6faff;");
-                    snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                } else {
-                    serialNumberImage.setVisible(false);
-                    snWordCount.setStyle("-fx-text-fill:  black; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                    snTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2;");
-                }
-
+            if(s == 10) {
+                serialNumberImage.setVisible(true);
+                snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             } else {
-                inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
-                inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
-                if(s == 10) {
-                    serialNumberImage.setVisible(true);
-                    snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                } else {
-                    serialNumberImage.setVisible(false);
-                    snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                }
+                serialNumberImage.setVisible(false);
+                snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             }
         }));
 
         // listener for name textfield
         nameTF.textProperty().addListener(((observable, oldValue, newValue) -> { int n = newValue.length();
             nameWordCount.setText("Character Count: " + n);
-            if(setMode()) {
-                inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
-                inventoryTable.getStylesheets().remove("ucf/assignments/css/tableview.css");
-                if(n >= 2 && n <= 256) {
-                    nameImage.setVisible(true);
-                    nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                    nameTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2; -fx-border-color: #f6faff;");
-                } else {
-                    nameImage.setVisible(false);
-                    nameWordCount.setStyle("-fx-text-fill:  black; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                    nameTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2;");
-                }
+            if(n >= 2 && n <= 256) {
+                nameImage.setVisible(true);
+                nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             } else {
-                inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
-                inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
-                if(n >= 2 && n <= 256) {
-                    nameImage.setVisible(true);
-                    nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                } else {
-                    nameImage.setVisible(false);
-                    nameWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
-                }
+                nameImage.setVisible(false);
+                nameWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             }
         }));
 
@@ -278,8 +247,9 @@ public class PersonalInventoryController {
             if (!newValue.matches("\\d*(\\.\\d)$") || !newValue.matches(".")) {
                 valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
             }
-
         });
+
+        setMode();
     }
 
     private void handleToolTips() {
@@ -294,10 +264,10 @@ public class PersonalInventoryController {
         Tooltip clearTip = new Tooltip("Clear list");
         clearTip.setShowDelay(Duration.seconds(0.05));
         clearListButton.setTooltip(clearTip);
+
     }
 
     private void sortVal() {
-        System.out.println("in sort");
         if(valueColumn.getSortType().equals(TableColumn.SortType.ASCENDING)){
             inventoryTable.sortPolicyProperty().set(param -> {
                 Comparator<Item> comparator = (i1, i2) -> sorting.sortValueASC(i1, i2);
@@ -310,7 +280,6 @@ public class PersonalInventoryController {
                     inventory.theList = new ArrayList<>(list);
                 }
 
-                System.out.println("VAL ASC: " + inventory.getTheList());
 
                 return true;
             });
@@ -326,7 +295,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("VAL DESC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -348,7 +317,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("SN ASC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -364,7 +333,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("SN DESC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -384,7 +353,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("NAME ASC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -399,7 +368,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("NAME DESC: " + inventory.getTheList());
+                }
 
                 return true;
             });
