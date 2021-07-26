@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="design changes">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/davis-0067-a5 light theme.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/smokepurp (2).png" beforeDir="false" afterPath="$PROJECT_DIR$/images/smokepurp(2).png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/lightTableView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/lightTableView.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -463,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627193256095</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="design changes">
+      <created>1627264144793</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1627264144793</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

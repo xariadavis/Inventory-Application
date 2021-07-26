@@ -56,74 +56,79 @@ public class PersonalInventoryController {
     @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount, listTitleTF, dollarSign;
     @FXML ImageView serialNumberImage, nameImage, headerImage, clearListImage, importImage, exportImage, logo1, logo2;
     @FXML JFXButton clearListButton, importButton, exportButton, addButton, exitButton;
-    @FXML Label dollarSignLabel;
+    @FXML Label dollarSignLabel, logoLabel;
 
     @FXML
     private boolean setMode() {
         boolean mode;
+
+
+        File file = new File("images/dark/headerbg.png");
+        Image image = new Image(file.toURI().toString());
+        headerImage.setImage(image);
+
+        File name = new File("images/dark/namebg.png");
+        Image namebg = new Image(name.toURI().toString());
+        nameImage.setImage(namebg);
+
+        File sn = new File("images/dark/snbg.png");
+        Image snbg = new Image(sn.toURI().toString());
+        serialNumberImage.setImage(snbg);
+
+        File importpic = new File("images/dark/upload.png");
+        Image importbg = new Image(importpic.toURI().toString());
+        importImage.setImage(importbg);
+
+        File exportpic = new File("images/dark/exportGradient.png");
+        Image exportbg = new Image(exportpic.toURI().toString());
+        exportImage.setImage(exportbg);
+
+        File clearListPic = new File("images/dark/trash.png");
+        Image clearListbg = new Image(clearListPic.toURI().toString());
+        clearListImage.setImage(clearListbg);
+
         if(!modeToggle.isSelected()) {
             mode = true;
 
-            Parent.setStyle("-fx-background-color: #effafd; -fx-border-radius: 15; -fx-background-radius: 15;");
-            headerPane.setStyle("-fx-background-color: #f6f7f8; -fx-background-radius: 15; -fx-border-radius: 15;");
-            headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
-            exitButton.setStyle("-fx-background-color: #5f3dc5; -fx-border-color: #6d2bf8 ; -fx-background-radius: 15; -fx-border-radius: 15; -fx-text-fill: #ffffff;");
+            File logo1Pic = new File("images/light/network(2).png");
+            Image logo = new Image(logo1Pic.toURI().toString());
+            logo1.setImage(logo);
 
-            File file = new File("images/light/lightbg.png");
-            Image image = new Image(file.toURI().toString());
+            File logo2Pic = new File("images/light/network(1).png");
+            Image logo2p = new Image(logo2Pic.toURI().toString());
+            logo2.setImage(logo2p);
+
+            logoLabel.setTextFill(Color.BLACK);
+
+            Parent.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15;");
+            headerPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15;");
+            headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
+            exitButton.setStyle("-fx-background-radius: 15; -fx-border-radius: 15; -fx-text-fill: #000000;");
+
             headerImage.setImage(image);
             headerImage.setFitHeight(65.0);
             headerImage.setFitWidth(1000.0);
             headerImage.setPickOnBounds(true);
             headerImage.setLayoutY(2.0);
 
-            inputPane.setStyle("-fx-background-color: #f6f7f8; -fx-background-radius: 15; -fx-border-radius: 15;");
+            inputPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15;");
             valueTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
             dollarSign.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15;");
             dollarSignLabel.setTextFill(Color.BLACK);
             snTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
             nameTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
-            addButton.setStyle("-fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #5f3dc5; -fx-text-fill: #ffffff;");
+            addButton.setStyle("-fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #26aefb; -fx-text-fill: #000000;");
 
-            totalPane.setStyle("-fx-background-color: #9966CC; -fx-background-radius: 15; -fx-border-radius: 15;");
+            totalPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #26aefb; -fx-border-width: 2;");
 
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #000000;");
-            searchBox.setStyle("-fx-background-color: #f6faff; -fx-border-color: #6d2bf8; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #000000;");
+            searchBox.setStyle("-fx-background-color: #f6faff; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #000000; -fx-border-width: 2;");
 
             inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
             inventoryTable.getStylesheets().remove("ucf/assignments/css/tableview.css");
 
         } else {
             mode = false;
-            Parent.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15;");
-            headerPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
-            headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
-            exitButton.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
-
-
-            File file = new File("images/dark/headerbg.png");
-            Image image = new Image(file.toURI().toString());
-            headerImage.setImage(image);
-
-            File name = new File("images/dark/namebg.png");
-            Image namebg = new Image(name.toURI().toString());
-            nameImage.setImage(namebg);
-
-            File sn = new File("images/dark/snbg.png");
-            Image snbg = new Image(sn.toURI().toString());
-            serialNumberImage.setImage(snbg);
-
-            File importpic = new File("images/dark/upload.png");
-            Image importbg = new Image(importpic.toURI().toString());
-            importImage.setImage(importbg);
-
-            File exportpic = new File("images/dark/exportGradient.png");
-            Image exportbg = new Image(exportpic.toURI().toString());
-            exportImage.setImage(exportbg);
-
-            File clearListPic = new File("images/dark/trash.png");
-            Image clearListbg = new Image(clearListPic.toURI().toString());
-            clearListImage.setImage(clearListbg);
 
             File logo1Pic = new File("images/dark/network1.png");
             Image logo = new Image(logo1Pic.toURI().toString());
@@ -132,6 +137,13 @@ public class PersonalInventoryController {
             File logo2Pic = new File("images/dark/network2.png");
             Image logo2p = new Image(logo2Pic.toURI().toString());
             logo2.setImage(logo2p);
+
+            logoLabel.setTextFill(Color.WHITE);
+
+            Parent.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15;");
+            headerPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
+            headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
+            exitButton.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
 
             inputPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
             valueTF.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;");
@@ -144,7 +156,7 @@ public class PersonalInventoryController {
             totalPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #26aefb; -fx-border-width: 2;");
 
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #ffffff;");
-            searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff;");
+            searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff; -fx-border-width: 2");
 
             inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
             inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
@@ -208,24 +220,57 @@ public class PersonalInventoryController {
         // listener for serial number textfield
         snTF.textProperty().addListener(((observable, oldValue, newValue) -> { int s = newValue.length();
             snWordCount.setText("Character Count: " + s);
-            if(s == 10) {
-                serialNumberImage.setVisible(true);
-                snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+            if(setMode()) {
+                inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
+                inventoryTable.getStylesheets().remove("ucf/assignments/css/tableview.css");
+                if(s == 10) {
+                    serialNumberImage.setVisible(true);
+                    snTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2; -fx-border-color: #f6faff;");
+                    snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                } else {
+                    serialNumberImage.setVisible(false);
+                    snWordCount.setStyle("-fx-text-fill:  black; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                    snTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2;");
+                }
+
             } else {
-                serialNumberImage.setVisible(false);
-                snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
+                inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
+                if(s == 10) {
+                    serialNumberImage.setVisible(true);
+                    snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                } else {
+                    serialNumberImage.setVisible(false);
+                    snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                }
             }
         }));
 
         // listener for name textfield
         nameTF.textProperty().addListener(((observable, oldValue, newValue) -> { int n = newValue.length();
             nameWordCount.setText("Character Count: " + n);
-            if(n >= 2 && n <= 256) {
-                nameImage.setVisible(true);
-                nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+            if(setMode()) {
+                inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
+                inventoryTable.getStylesheets().remove("ucf/assignments/css/tableview.css");
+                if(n >= 2 && n <= 256) {
+                    nameImage.setVisible(true);
+                    nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                    nameTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2; -fx-border-color: #f6faff;");
+                } else {
+                    nameImage.setVisible(false);
+                    nameWordCount.setStyle("-fx-text-fill:  black; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                    nameTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: black; -fx-border-width: 2;");
+                }
             } else {
-                nameImage.setVisible(false);
-                nameWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
+                inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
+                if(n >= 2 && n <= 256) {
+                    nameImage.setVisible(true);
+                    nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                } else {
+                    nameImage.setVisible(false);
+                    nameWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                }
             }
         }));
 
@@ -233,6 +278,7 @@ public class PersonalInventoryController {
             if (!newValue.matches("\\d*(\\.\\d)$") || !newValue.matches(".")) {
                 valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
             }
+
         });
     }
 
