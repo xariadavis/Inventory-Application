@@ -88,6 +88,8 @@ public class PersonalInventoryController {
 
         if(!modeToggle.isSelected()) {
             mode = true;
+            inventoryTable.getStylesheets().clear();
+            inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
 
             File logo1Pic = new File("images/light/network(2).png");
             Image logo = new Image(logo1Pic.toURI().toString());
@@ -99,6 +101,9 @@ public class PersonalInventoryController {
 
             logoLabel.setTextFill(Color.BLACK);
 
+            totalTF.setStyle("-fx-text-fill: black; -fx-background-color: transparent;");
+            itemCount.setStyle("-fx-text-fill: black; -fx-background-color: transparent;");
+
             Parent.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15;");
             headerPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15;");
             headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
@@ -109,6 +114,7 @@ public class PersonalInventoryController {
             headerImage.setFitWidth(1000.0);
             headerImage.setPickOnBounds(true);
             headerImage.setLayoutY(2.0);
+
 
             inputPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15;");
             valueTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
@@ -123,12 +129,11 @@ public class PersonalInventoryController {
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #000000;");
             searchBox.setStyle("-fx-background-color: #f6faff; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #000000; -fx-border-width: 2;");
 
-            inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
-            inventoryTable.getStylesheets().remove("ucf/assignments/css/tableview.css");
-
         } else {
             mode = false;
-            modeToggle.setDisable(true);
+            inventoryTable.getStylesheets().clear();
+            inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
+
             File logo1Pic = new File("images/dark/network1.png");
             Image logo = new Image(logo1Pic.toURI().toString());
             logo1.setImage(logo);
@@ -138,6 +143,9 @@ public class PersonalInventoryController {
             logo2.setImage(logo2p);
 
             logoLabel.setTextFill(Color.WHITE);
+            totalTF.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+            itemCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+
 
             Parent.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15;");
             headerPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
@@ -156,10 +164,6 @@ public class PersonalInventoryController {
 
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #ffffff;");
             searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff; -fx-border-width: 2;");
-
-            inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
-            inventoryTable.getStylesheets().remove("ucf/assignments/css/lightTableView.css");
-
         }
 
         return mode;

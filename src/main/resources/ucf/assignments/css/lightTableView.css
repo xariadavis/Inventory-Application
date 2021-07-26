@@ -43,7 +43,7 @@
 }
 
 .table-row-cell: selected .text {
-    -fx-fill: #ffb6ff;
+    -fx-fill: #000000;
 }
 
 .table-row-cell {
@@ -93,5 +93,5 @@
     -fx-border-radius: 15;
     -fx-font-family: 'Segoe UI Light', Regular;
     -fx-text-fill: white;
-    -fx-background-color:  #211350;
+    -fx-background-color:  #f6faff;
 }

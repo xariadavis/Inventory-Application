@@ -8,6 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/EditingCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/EditingCell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/RemoveTablecell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/lightTableView.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/lightTableView.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -471,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627271224847</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="design changes">
+      <created>1627272234911</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1627272234911</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
