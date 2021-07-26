@@ -28,23 +28,6 @@ class EditingCell extends TableCell<Item, String> {
             createTextField();
             setGraphic(textField);
             textField.selectAll();
-            if(mode){
-                textField.setStyle("""
-                    -fx-font-size: 14;
-                    -fx-background-radius: 15;
-                    -fx-border-radius: 15;
-                    -fx-font-family: 'Segoe UI Light', Regular;
-                    -fx-text-fill: white;
-                    -fx-background-color:  #1f1d2c;""".indent(4));
-            } else {
-                textField.setStyle("""
-                    -fx-font-size: 14;
-                    -fx-background-radius: 15;
-                    -fx-border-radius: 15;
-                    -fx-font-family: 'Segoe UI Light', Regular;
-                    -fx-text-fill: black;
-                    -fx-background-color:  #f6faff;""".indent(4));
-            }
         }
     }
 
@@ -81,6 +64,7 @@ class EditingCell extends TableCell<Item, String> {
 
     private void createTextField() {
         textField = new TextField(getString().replace("$",""));
+        setStyle();
         textField.setMinWidth(175);
         textField.setOnAction((e) -> commitEdit());
         textField.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -94,6 +78,26 @@ class EditingCell extends TableCell<Item, String> {
                 textField.setText(newValue.replaceAll("[^\\d(.)]", ""));
             }
         }));
+    }
+                                   
+    private void setStyle() {
+        if(mode){
+            textField.setStyle("""
+                    -fx-font-size: 14;
+                    -fx-background-radius: 15;
+                    -fx-border-radius: 15;
+                    -fx-font-family: 'Segoe UI Light', Regular;
+                    -fx-text-fill: white;
+                    -fx-background-color:  #1f1d2c;""".indent(4));
+        } else {
+            textField.setStyle("""
+                    -fx-font-size: 14;
+                    -fx-background-radius: 15;
+                    -fx-border-radius: 15;
+                    -fx-font-family: 'Segoe UI Light', Regular;
+                    -fx-text-fill: black;
+                    -fx-background-color:  #f6faff;""".indent(4));
+        }
     }
 
     private String getString() {
