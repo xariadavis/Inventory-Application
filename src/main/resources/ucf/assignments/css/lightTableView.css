@@ -43,7 +43,7 @@
 }
 
 .table-row-cell: selected .text {
-    -fx-fill: #000000;
+    -fx-fill: #D0ECFE;
 }
 
 .table-row-cell {
