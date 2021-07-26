@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="design changes">
-      <change beforePath="$PROJECT_DIR$/demo/demo.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
+    <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="updated demo">
+      <change afterPath="$PROJECT_DIR$/uml/Diagram.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/Sorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/Sorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/Validator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ucf/assignments/PersonalInventoryControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ucf/assignments/PersonalInventoryControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ucf/assignments/SortingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ucf/assignments/SortingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ucf/assignments/TableOperationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ucf/assignments/TableOperationsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ucf/assignments/ValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ucf/assignments/ValidatorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +62,7 @@
         <option value="FxmlFile" />
         <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="UML Class" />
       </list>
     </option>
   </component>
@@ -89,6 +97,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -107,13 +116,55 @@
       <recent name="ucf.assignments" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.davis-0067-a5 [run]">
-    <configuration name="TableOperationsTest.removeItem" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ValidatorTest">
+    <configuration name="PersonalInventoryControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.TableOperationsTest.removeItem&quot;" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.PersonalInventoryControllerTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SortingTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.SortingTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="TableOperationsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ucf.assignments.TableOperationsTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -135,48 +186,6 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ValidatorTest.stringOver256" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest.stringOver256&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ValidatorTest.validateSerialNumber" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;ucf.assignments.ValidatorTest.validateSerialNumber&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -215,11 +224,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.davis-0067-a5 [run]" />
-        <item itemvalue="Gradle.TableOperationsTest.removeItem" />
         <item itemvalue="Gradle.ValidatorTest" />
-        <item itemvalue="Gradle.ValidatorTest.stringOver256" />
-        <item itemvalue="Gradle.ValidatorTest.validateSerialNumber" />
+        <item itemvalue="Gradle.TableOperationsTest" />
+        <item itemvalue="Gradle.SortingTest" />
+        <item itemvalue="Gradle.davis-0067-a5 [run]" />
+        <item itemvalue="Gradle.PersonalInventoryControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -491,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627275336498</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="updated demo">
+      <created>1627275833922</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1627275833922</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -531,6 +547,7 @@
     <MESSAGE value="successful testing" />
     <MESSAGE value="design changes -- enabled light mode" />
     <MESSAGE value="design changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="design changes" />
+    <MESSAGE value="updated demo" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated demo" />
   </component>
 </project>

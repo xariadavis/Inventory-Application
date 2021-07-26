@@ -391,7 +391,6 @@ public class PersonalInventoryController {
 
     // create method to return true if item matches search text
     public boolean searchForItem(Item item, String searchText){
-        inventoryTable.refresh();
         return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
                 (item.getSerialNumber().toLowerCase().contains(searchText.toLowerCase()));
     }
@@ -401,6 +400,7 @@ public class PersonalInventoryController {
         List<Item> filteredList = new ArrayList<>();
         for (Item item : list){
             if(searchForItem(item, searchText)) filteredList.add(item);
+            inventoryTable.refresh();
         }
 
         return FXCollections.observableList(filteredList);
