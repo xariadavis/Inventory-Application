@@ -492,8 +492,6 @@ public class PersonalInventoryController {
 
             values.add(Double.parseDouble(value));
 
-            System.out.println(values);
-
             // call formatTableView to format the currency correctly
             formatValueColumn();
 

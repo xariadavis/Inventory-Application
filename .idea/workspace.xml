@@ -116,7 +116,7 @@
       <recent name="ucf.assignments" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ValidatorTest">
+  <component name="RunManager" selected="Gradle.davis-0067-a5 [run]">
     <configuration name="PersonalInventoryControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -224,10 +224,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.davis-0067-a5 [run]" />
         <item itemvalue="Gradle.ValidatorTest" />
         <item itemvalue="Gradle.TableOperationsTest" />
         <item itemvalue="Gradle.SortingTest" />
-        <item itemvalue="Gradle.davis-0067-a5 [run]" />
         <item itemvalue="Gradle.PersonalInventoryControllerTest" />
       </list>
     </recent_temporary>
