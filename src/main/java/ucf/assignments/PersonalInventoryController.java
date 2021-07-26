@@ -129,6 +129,11 @@ public class PersonalInventoryController {
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #000000;");
             searchBox.setStyle("-fx-background-color: #f6faff; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #000000; -fx-border-width: 2;");
 
+            Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
+                    = (TableColumn<Item, String> param) -> new EditingCell(false);
+
+            valueColumn.setCellFactory(cellFactory);
+
         } else {
             mode = false;
             inventoryTable.getStylesheets().clear();
@@ -164,6 +169,11 @@ public class PersonalInventoryController {
 
             listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #ffffff;");
             searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff; -fx-border-width: 2;");
+
+            Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
+                    = (TableColumn<Item, String> param) -> new EditingCell(true);
+
+            valueColumn.setCellFactory(cellFactory);
         }
 
         return mode;
