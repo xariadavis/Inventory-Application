@@ -195,7 +195,7 @@ public class PersonalInventoryController {
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
-                = (TableColumn<Item, String> param) -> new EditingCell();
+                = (TableColumn<Item, String> param) -> new EditingCell(setMode());
 
         valueColumn.setCellFactory(cellFactory);
 

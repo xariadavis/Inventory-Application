@@ -15,8 +15,10 @@ import javafx.scene.control.TextField;
 class EditingCell extends TableCell<Item, String> {
 
     private TextField textField;
+    boolean mode;
 
-    public EditingCell() {
+    public EditingCell(boolean mode) {
+        this.mode = mode;
     }
 
     @Override
@@ -26,13 +28,23 @@ class EditingCell extends TableCell<Item, String> {
             createTextField();
             setGraphic(textField);
             textField.selectAll();
-            textField.setStyle("""
+            if(mode){
+                textField.setStyle("""
                     -fx-font-size: 14;
                     -fx-background-radius: 15;
                     -fx-border-radius: 15;
                     -fx-font-family: 'Segoe UI Light', Regular;
                     -fx-text-fill: white;
-                    -fx-background-color:  #26aefb;""".indent(4));
+                    -fx-background-color:  #1f1d2c;""".indent(4));
+            } else {
+                textField.setStyle("""
+                    -fx-font-size: 14;
+                    -fx-background-radius: 15;
+                    -fx-border-radius: 15;
+                    -fx-font-family: 'Segoe UI Light', Regular;
+                    -fx-text-fill: black;
+                    -fx-background-color:  #f6faff;""".indent(4));
+            }
         }
     }
 
