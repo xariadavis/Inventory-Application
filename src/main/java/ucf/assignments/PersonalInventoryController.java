@@ -613,7 +613,6 @@ public class PersonalInventoryController {
         if (file != null && file.getAbsolutePath().endsWith(".html")) {
             clearList();
             fileManagement.HTMLtoList(file.getAbsolutePath(), inventory.getTheList());
-            listTitleTF.setText(inventory.getTitle());
             inventoryTable.getItems().addAll(inventory.getTheList());
             formatValueColumn();
             inventoryTable.refresh();
