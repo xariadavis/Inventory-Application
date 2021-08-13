@@ -1,0 +1,165 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class EditingCell {
+    - private TextField textField;
+    - boolean mode;
+
+    + EditingCell(boolean mode)
+    + startEdit()
+    + cancelEdit()
+    + updateItem(String val, boolean empty)
+    + commitEdit()
+    + createTextField()
+    + getString()
+}
+
+class FileManagement {
+    - String title;
+    - Inventory inventory = new Inventory(title);
+
+    + listToHTML(String outputPath, ArrayList<Item> theList, String title)
+    + HTMLtoList(String output, ArrayList<Item> theList)
+    + listToTXT(String output, ArrayList<Item> theList)
+    + TXTtoList(String inputPath, ArrayList<Item> theList)
+    + rawArray (String data, ArrayList<Item> theList)
+}
+
+class Inventory {
+    - String title
+
+    + Inventory(String title)
+    + void setTitle(String title)
+    + String getTitle()
+    + ArrayList<Item> getTheList()
+    + compareItems(Item i1, Item i2)
+    + sortList(TableView inventoryTable)
+    + setTheList(ArrayList<Item> theList)
+}
+
+class Item {
+    - private SimpleStringProperty value;
+    - private SimpleStringProperty serialNumber;
+    - private SimpleStringProperty name;
+    - FileManagement file = new FileManagement();
+
+    + Item(String value, String serialNumber, String name)
+    + Item (String rawData, String regex)
+    + getValue()
+    + setValue(String value)
+    + getSerialNumber()
+    + setSerialNumber(String serialNumber)
+    + getName()
+    + setName(String name)
+    + toString()
+}
+
+class PersonalInventory {
+    - private double xOffset;
+    - private double yOffset;
+
+    + main(String[] args)
+    + start(Stage primaryStage)
+}
+
+class PersonalInventoryController {
+    - TableOperations ops
+    - String title;
+    - Inventory inventory
+    - FileManagement fileManagement
+    - Sorting sorting
+    - ArrayList<Double> values
+    - Validator validate
+    - AnchorPane Parent, headerPane;
+    - JFXToggleButton modeToggle;
+    - Pane inputPane, totalPane;
+    - TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
+    - TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
+    - TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
+    - TableColumn<Item, Boolean> deleteColumn = new TableColumn<>("");
+    - TableView<Item> inventoryTable;
+    - TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount, listTitleTF, dollarSign;
+    - ImageView serialNumberImage, nameImage, headerImage, clearListImage, importImage, exportImage, logo1, logo2;
+    - JFXButton clearListButton, importButton, exportButton, addButton, exitButton;
+    - Label dollarSignLabel, logoLabel;
+
+    + setMode()
+    + initialize()
+    + handleToolTips()
+    + sortVal()
+    + sortSN()
+    + sortName()
+    + exitWindow(ActionEvent actionEvent)
+    + searchForItem(Item item, String searchText)
+    + filterList(ArrayList<Item> list, String searchText)
+    + searchTable()
+    + totalField()
+    + setTotalTF(TextField totalTF, String total)
+    + setTotalItemCount()
+    + setTotalCount(TextField itemCount, String itemTotal)
+    + formatValueColumn()
+    + refreshEvent()
+    + addItemToTable()
+    + editItemValueInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent)
+    + editItemSNInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent) {
+    + editItemNameInTable(TableColumn.CellEditEvent<Item, String> itemStringCellEditEvent)
+    + exportButtonClicked()
+    + importButtonClicked()
+    + onEnterName(ActionEvent actionEvent)
+    + saveListTitle(ActionEvent actionEvent)
+    + clearList()
+}
+
+class RemoveTableCell {
+    - PersonalInventoryController controller
+    - TableOperations ops
+    - JFXButton removeButton
+
+    + RemoveTablecell(TableView inventoryTable, Inventory myInventory, TextField totaltf, String total, TextField itemCount, boolean mode)
+    + updateItem(Boolean r, boolean empty)
+    + setRemoveGraphic(boolean mode)
+}
+
+class Sorting {
+    + sortValueASC(Item i1, Item i2)
+    + sortValueDESC(Item i1, Item i2)
+    + sortSNASC(Item i1, Item i2)
+    + sortSNDESC(Item i1, Item i2)
+    + sortNameASC(Item i1, Item i2)
+    + sortNameDESC(Item i1, Item i2)
+}
+
+class TableOperations {
+    + Item addToTable(String value, String serialNumber, String name, ArrayList<Item> theList)
+    + limitText(String itemName)
+    + removeItem(Item item, ArrayList<Item> theList)
+}
+
+class Validator {
+    + catchInvalidValue(String value)
+    + catchInvalidSerial(String serialNumber)
+    + validateSerialNumber(String serialNumber, boolean initialStatus, ArrayList<Item> theList, ImageView serialNumberImage)
+    + validateString(String name)
+}
+
+PersonalInventory <|-- PersonalInventoryController
+PersonalInventoryController <|-- EditingCell
+PersonalInventoryController <|-- FileManagement
+PersonalInventoryController <|-- RemoveTableCell
+PersonalInventoryController <|-- Sorting
+PersonalInventoryController <|-- TableOperations
+PersonalInventoryController <|-- Validator
+
+EditingCell <|-- Item
+RemoveTableCell <|-- Item
+Validator <|-- Item
+
+FileManagement <|-- Inventory
+Sorting <|-- Inventory
+TableOperations <|-- Inventory
+
+
+PersonalInventoryController <|-- Inventory
+Inventory <|-- Item
+
+@enduml

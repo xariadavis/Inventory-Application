@@ -6,20 +6,24 @@
 package ucf.assignments;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -41,17 +45,143 @@ public class PersonalInventoryController {
     ArrayList<Double> values = new ArrayList<>();
     Validator validate = new Validator();
 
-    @FXML private AnchorPane Parent;
+    @FXML private AnchorPane Parent, headerPane;
+    @FXML private JFXToggleButton modeToggle;
+    @FXML private Pane inputPane, totalPane;
     @FXML public TableColumn<Item, String> valueColumn = new TableColumn<>("Value");
     @FXML public TableColumn<Item, String> snColumn = new TableColumn<>("Serial Number");
     @FXML public TableColumn<Item, String> nameColumn = new TableColumn<>("Name");
     @FXML public TableColumn<Item, Boolean> deleteColumn = new TableColumn<>("");
     @FXML private TableView<Item> inventoryTable;
-    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount, listTitleTF;
-    @FXML ImageView serialNumberImage, nameImage;
-    @FXML JFXButton clearListButton, importButton, exportButton;
+    @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount, listTitleTF, dollarSign;
+    @FXML ImageView serialNumberImage, nameImage, headerImage, clearListImage, importImage, exportImage, logo1, logo2;
+    @FXML JFXButton clearListButton, importButton, exportButton, addButton, exitButton;
+    @FXML Label dollarSignLabel, logoLabel;
+
+    @FXML
+    private boolean setMode() {
+        boolean mode;
+
+        File file = new File("images/dark/headerbg.png");
+        Image image = new Image(file.toURI().toString());
+        headerImage.setImage(image);
+
+        File name = new File("images/dark/namebg.png");
+        Image namebg = new Image(name.toURI().toString());
+        nameImage.setImage(namebg);
+
+        File sn = new File("images/dark/snbg.png");
+        Image snbg = new Image(sn.toURI().toString());
+        serialNumberImage.setImage(snbg);
+
+        File importpic = new File("images/dark/upload.png");
+        Image importbg = new Image(importpic.toURI().toString());
+        importImage.setImage(importbg);
+
+        File exportpic = new File("images/dark/exportGradient.png");
+        Image exportbg = new Image(exportpic.toURI().toString());
+        exportImage.setImage(exportbg);
+
+        File clearListPic = new File("images/dark/trash.png");
+        Image clearListbg = new Image(clearListPic.toURI().toString());
+        clearListImage.setImage(clearListbg);
+
+        if(!modeToggle.isSelected()) {
+            mode = true;
+            inventoryTable.getStylesheets().clear();
+            inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
+
+            File logo1Pic = new File("images/light/network(2).png");
+            Image logo = new Image(logo1Pic.toURI().toString());
+            logo1.setImage(logo);
+
+            File logo2Pic = new File("images/light/network(1).png");
+            Image logo2p = new Image(logo2Pic.toURI().toString());
+            logo2.setImage(logo2p);
+
+            logoLabel.setTextFill(Color.BLACK);
+
+            totalTF.setStyle("-fx-text-fill: black; -fx-background-color: transparent;");
+            itemCount.setStyle("-fx-text-fill: black; -fx-background-color: transparent;");
+
+            Parent.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15;");
+            headerPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15;");
+            headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
+            exitButton.setStyle("-fx-background-radius: 15; -fx-border-radius: 15; -fx-text-fill: #000000;");
+
+            headerImage.setImage(image);
+            headerImage.setFitHeight(65.0);
+            headerImage.setFitWidth(1000.0);
+            headerImage.setPickOnBounds(true);
+            headerImage.setLayoutY(2.0);
+
+
+            inputPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15;");
+            valueTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
+            dollarSign.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15;");
+            dollarSignLabel.setTextFill(Color.BLACK);
+            snTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
+            nameTF.setStyle("-fx-background-color: #f6faff; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: #000000;");
+            addButton.setStyle("-fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #26aefb; -fx-text-fill: #000000;");
+
+            totalPane.setStyle("-fx-background-color: #D0ECFE; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #26aefb; -fx-border-width: 2;");
+
+            listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #000000;");
+            searchBox.setStyle("-fx-background-color: #f6faff; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #000000; -fx-border-width: 2;");
+
+            Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
+                    = (TableColumn<Item, String> param) -> new EditingCell(false);
+
+            valueColumn.setCellFactory(cellFactory);
+
+        } else {
+            mode = false;
+            inventoryTable.getStylesheets().clear();
+            inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
+
+            File logo1Pic = new File("images/dark/network1.png");
+            Image logo = new Image(logo1Pic.toURI().toString());
+            logo1.setImage(logo);
+
+            File logo2Pic = new File("images/dark/network2.png");
+            Image logo2p = new Image(logo2Pic.toURI().toString());
+            logo2.setImage(logo2p);
+
+            logoLabel.setTextFill(Color.WHITE);
+            totalTF.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+            itemCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+
+
+            Parent.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15;");
+            headerPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
+            headerImage.setStyle("-fx-border-radius: 15; -fx-background-radius: 15;");
+            exitButton.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
+
+            inputPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15;");
+            valueTF.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;");
+            dollarSign.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15;");
+            dollarSignLabel.setTextFill(Color.WHITE);
+            snTF.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;");
+            nameTF.setStyle("-fx-background-color: #1f1d2c; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;");
+            addButton.setStyle("-fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: #26aefb;");
+
+            totalPane.setStyle("-fx-background-color: #242636; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #26aefb; -fx-border-width: 2;");
+
+            listTitleTF.setStyle("-fx-background-color: transparent; -fx-text-fill: #ffffff;");
+            searchBox.setStyle("-fx-background-color: #1f1d2c; -fx-border-color: #26aefb; -fx-background-radius: 12; -fx-border-radius: 12; -fx-text-fill: #ffffff; -fx-border-width: 2;");
+
+            Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
+                    = (TableColumn<Item, String> param) -> new EditingCell(true);
+
+            valueColumn.setCellFactory(cellFactory);
+        }
+
+        return mode;
+    }
 
     public void initialize() {
+
+        modeToggle.setSelected(true);
 
         Label placeholder = new Label();
         placeholder.setText("No items found in inventory.");
@@ -75,7 +205,7 @@ public class PersonalInventoryController {
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         Callback<TableColumn<Item, String>, TableCell<Item, String>> cellFactory
-                = (TableColumn<Item, String> param) -> new EditingCell();
+                = (TableColumn<Item, String> param) -> new EditingCell(setMode());
 
         valueColumn.setCellFactory(cellFactory);
 
@@ -92,7 +222,7 @@ public class PersonalInventoryController {
                 r -> new SimpleBooleanProperty(r.getValue() != null));
 
         deleteColumn.setCellFactory(
-                r -> new RemoveTablecell(inventoryTable, inventory, totalTF, totalField(), itemCount));
+                r -> new RemoveTablecell(inventoryTable, inventory, totalTF, totalField(), itemCount, setMode()));
 
         inventoryTable.getColumns().add(deleteColumn);
 
@@ -108,10 +238,10 @@ public class PersonalInventoryController {
             snWordCount.setText("Character Count: " + s);
             if(s == 10) {
                 serialNumberImage.setVisible(true);
-                snWordCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             } else {
                 serialNumberImage.setVisible(false);
-                snWordCount.setStyle("-fx-text-fill:  #6d2bf8; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             }
         }));
 
@@ -120,10 +250,10 @@ public class PersonalInventoryController {
             nameWordCount.setText("Character Count: " + n);
             if(n >= 2 && n <= 256) {
                 nameImage.setVisible(true);
-                nameWordCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                nameWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             } else {
                 nameImage.setVisible(false);
-                nameWordCount.setStyle("-fx-text-fill:  #6d2bf8; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                nameWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             }
         }));
 
@@ -132,6 +262,8 @@ public class PersonalInventoryController {
                 valueTF.setText(newValue.replaceAll("[^\\d(.)$]", ""));
             }
         });
+
+        setMode();
     }
 
     private void handleToolTips() {
@@ -146,10 +278,10 @@ public class PersonalInventoryController {
         Tooltip clearTip = new Tooltip("Clear list");
         clearTip.setShowDelay(Duration.seconds(0.05));
         clearListButton.setTooltip(clearTip);
+
     }
 
     private void sortVal() {
-        System.out.println("in sort");
         if(valueColumn.getSortType().equals(TableColumn.SortType.ASCENDING)){
             inventoryTable.sortPolicyProperty().set(param -> {
                 Comparator<Item> comparator = (i1, i2) -> sorting.sortValueASC(i1, i2);
@@ -162,7 +294,6 @@ public class PersonalInventoryController {
                     inventory.theList = new ArrayList<>(list);
                 }
 
-                System.out.println("VAL ASC: " + inventory.getTheList());
 
                 return true;
             });
@@ -178,7 +309,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("VAL DESC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -200,7 +331,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("SN ASC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -216,7 +347,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("SN DESC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -236,7 +367,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("NAME ASC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -251,7 +382,7 @@ public class PersonalInventoryController {
                     inventory.theList = (ArrayList<Item>) list;
                 } else {
                     inventory.theList = new ArrayList<>(list);
-                } System.out.println("NAME DESC: " + inventory.getTheList());
+                }
 
                 return true;
             });
@@ -270,7 +401,6 @@ public class PersonalInventoryController {
 
     // create method to return true if item matches search text
     public boolean searchForItem(Item item, String searchText){
-        inventoryTable.refresh();
         return (item.getName().toLowerCase().contains(searchText.toLowerCase())) ||
                 (item.getSerialNumber().toLowerCase().contains(searchText.toLowerCase()));
     }
@@ -280,6 +410,7 @@ public class PersonalInventoryController {
         List<Item> filteredList = new ArrayList<>();
         for (Item item : list){
             if(searchForItem(item, searchText)) filteredList.add(item);
+            inventoryTable.refresh();
         }
 
         return FXCollections.observableList(filteredList);
@@ -370,8 +501,6 @@ public class PersonalInventoryController {
             inventoryTable.getItems().add(item);
 
             values.add(Double.parseDouble(value));
-
-            System.out.println(values);
 
             // call formatTableView to format the currency correctly
             formatValueColumn();
@@ -484,7 +613,6 @@ public class PersonalInventoryController {
         if (file != null && file.getAbsolutePath().endsWith(".html")) {
             clearList();
             fileManagement.HTMLtoList(file.getAbsolutePath(), inventory.getTheList());
-            listTitleTF.setText(inventory.getTitle());
             inventoryTable.getItems().addAll(inventory.getTheList());
             formatValueColumn();
             inventoryTable.refresh();

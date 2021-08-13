@@ -21,18 +21,17 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
     TableOperations ops = new TableOperations();
     final JFXButton removeButton = new JFXButton("");
 
-    RemoveTablecell(TableView inventoryTable, Inventory myInventory, TextField totaltf, String total, TextField itemCount) {
-        setRemoveGraphic();
+    RemoveTablecell(TableView inventoryTable, Inventory myInventory, TextField totaltf, String total, TextField itemCount, boolean mode) {
+        setRemoveGraphic(mode);
         removeButton.setOnAction(r -> {
-            inventoryTable.refresh();
             Item item = getTableRow().getItem();
 
             double oop = Double.parseDouble(item.getValue());
 
             inventoryTable.getItems().remove(item);
+            inventoryTable.refresh();
             ops.removeItem(item, myInventory.theList);
 
-            inventoryTable.refresh();
 
             int newItemCount = myInventory.theList.size();
             String newItemString;
@@ -58,9 +57,13 @@ public class RemoveTablecell extends TableCell <Item, Boolean> {
         }
     }
 
-    public void setRemoveGraphic() {
+    public void setRemoveGraphic(boolean mode) {
         try {
-            removeButton.setGraphic(new ImageView((new Image(new FileInputStream("images/cancel.png")))));
+            if(mode){
+                removeButton.setGraphic(new ImageView((new Image(new FileInputStream("images/light/cancel.png")))));
+            } else if(!mode){
+                removeButton.setGraphic(new ImageView((new Image(new FileInputStream("images/dark/cancel.png")))));
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
