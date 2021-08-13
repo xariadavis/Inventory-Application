@@ -53,7 +53,7 @@ public class PersonalInventory extends Application {
             });
 
             primaryStage.initStyle(StageStyle.TRANSPARENT);
-            primaryStage.setTitle("To Do List");
+            primaryStage.setTitle("Inventory Tracker");
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
