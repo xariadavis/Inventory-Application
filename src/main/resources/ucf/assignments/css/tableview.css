@@ -8,7 +8,7 @@
 
 .table-view .column-header .label {
   -fx-alignment: CENTER_LEFT;
-  -fx-text-fill: black;
+  -fx-text-fill: WHITE;
   -fx-font-size: 17;
   -fx-opacity: 0.5;
   -fx-font-family: 'Segoe UI Light', Regular;
@@ -55,7 +55,7 @@
 }
 
 .table-row-cell .text{
-    -fx-fill: BLACK ;
+    -fx-fill: WHITE ;
     -fx-font-family: 'Segoe UI Light', Regular;
     -fx-font-size: 15;
 } 

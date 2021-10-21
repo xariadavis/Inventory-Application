@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2180b4d6-d651-4f5a-94fa-fa9acbdba519" name="Default Changelist" comment="design changes">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ucf/assignments/PersonalInventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/PersonalInventory.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ucf/assignments/css/tableview.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,16 +37,16 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="davis-0067-a5" type="f1a62948:ProjectNode" />
+                <item name="Inventory App" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="davis-0067-a5" type="f1a62948:ProjectNode" />
+                <item name="Inventory App" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="davis-0067-a5" type="f1a62948:ProjectNode" />
+                <item name="Inventory App" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="application" type="c8890929:TasksNode$1" />
               </path>
@@ -92,9 +100,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.19912472" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />

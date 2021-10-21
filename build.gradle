@@ -31,5 +31,5 @@ javafx {
 }
 
 application {
-    mainClassName = 'ucf.assignments.PersonalInventory'
+    mainClassName = 'ucf.assignments.Main'
 }
