@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class PersonalInventory extends Application {
+public class Main extends Application {
 
     private double xOffset = 0.0;
     private double yOffset = 0.0;

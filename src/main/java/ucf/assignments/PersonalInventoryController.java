@@ -11,7 +11,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -56,7 +56,8 @@ public class PersonalInventoryController {
     @FXML private TextField valueTF, snTF, nameTF, searchBox, totalTF, snWordCount, nameWordCount, itemCount, listTitleTF, dollarSign;
     @FXML ImageView serialNumberImage, nameImage, headerImage, clearListImage, importImage, exportImage, logo1, logo2;
     @FXML JFXButton clearListButton, importButton, exportButton, addButton, exitButton;
-    @FXML Label dollarSignLabel, logoLabel;
+    @FXML Label dollarSignLabel, logoLabel, totalText;
+    @FXML Label placeholder = new Label();
 
     @FXML
     private boolean setMode() {
@@ -88,6 +89,13 @@ public class PersonalInventoryController {
 
         if(!modeToggle.isSelected()) {
             mode = true;
+            modeToggle.setTextFill(Color.valueOf("black"));
+            totalText.setTextFill(Color.valueOf("black"));
+            totalText.setOpacity(0.5);
+            placeholder.setTextFill(Color.valueOf("black"));
+            placeholder.setOpacity(0.5);
+            nameWordCount.setStyle("-fx-text-fill: black; -fx-background-color: transparent;");
+            snWordCount.setStyle("-fx-text-fill: black; -fx-background-color: transparent;");
             inventoryTable.getStylesheets().clear();
             inventoryTable.getStylesheets().add("ucf/assignments/css/lightTableView.css");
 
@@ -136,6 +144,14 @@ public class PersonalInventoryController {
 
         } else {
             mode = false;
+            totalText.setTextFill(Color.valueOf("white"));
+            totalText.setOpacity(0.5);
+            modeToggle.setTextFill(Color.valueOf("white"));
+            placeholder.setTextFill(Color.valueOf("white"));
+            nameWordCount.setStyle(String.valueOf(Color.valueOf("white")));
+            placeholder.setOpacity(0.5);
+            nameWordCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+            snWordCount.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
             inventoryTable.getStylesheets().clear();
             inventoryTable.getStylesheets().add("ucf/assignments/css/tableview.css");
 
@@ -183,7 +199,6 @@ public class PersonalInventoryController {
 
         modeToggle.setSelected(true);
 
-        Label placeholder = new Label();
         placeholder.setText("No items found in inventory.");
         placeholder.setTextFill(Color.valueOf("white"));
         placeholder.setOpacity(0.5);
@@ -241,7 +256,7 @@ public class PersonalInventoryController {
                 snWordCount.setStyle("-fx-text-fill: #26aefb; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             } else {
                 serialNumberImage.setVisible(false);
-                snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
+                //snWordCount.setStyle("-fx-text-fill:  white; -fx-background-color: transparent; -fx-font-family: 'Segoe UI Light', Regular;");
             }
         }));
 
@@ -639,7 +654,7 @@ public class PersonalInventoryController {
         });
     }
 
-    public void saveListTitle(ActionEvent actionEvent) {
+    public void saveListTitle() {
         listTitleTF.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
