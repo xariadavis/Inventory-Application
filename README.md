@@ -1,5 +1,6 @@
 # Xaria Davis COP 3330 Application Assignment 2
 
+Beginner project for COP3330
 Shelved is GUI-based desktop application that allows a user to track their personal inventory.
 
 # Demo
